@@ -25,10 +25,12 @@ function lookup(symbol, env){
 }
 
 function _inter(expr, env){
+    // console.log("========start==========")
     // console.log(expr);
     // console.log(env);
+    // console.log("========end==========")
     if(_.isArray(expr)){
-        if(expr.length === 1){
+        if(expr.length === 1){ // can be removed when deal with define
             return _inter(expr[0], env)
         }
 
@@ -36,20 +38,27 @@ function _inter(expr, env){
             if(expr[0] === 'lambda'){
                 return function(){
                     var args = arguments;
-                    // env[expr[1][0]] = x;
+                    var extendEnv = _.create({}, env)
                     _.each(expr[1], function(ele, index, list){
-                        env[ele] = args[index];
+                        extendEnv[ele] = args[index];
                     })
 
-                    return _inter(expr[2], env);
+                    return _inter(expr[2], extendEnv);
                 }
             }
 
             if(expr[0] === 'let'){
+                var newEnv = _.create({}, env)
                 _.each(expr[1], function(ele, index, list){
-                    env[ele[0]] = _inter(ele[1], env);
+                    newEnv[ele[0]] = _inter(ele[1], env);
                 });
-                return _inter(expr[2], env);
+
+                var result;
+                _.each(expr.slice(2), function(ele, index, list){
+                    console.log(newEnv)
+                    result = _inter(ele, newEnv);
+                })
+                return result;
             }
 
             if(expr[0] === 'if'){
@@ -59,6 +68,19 @@ function _inter(expr, env){
                 }else{
                     return _inter(expr[3], env)
                 }
+            }
+
+            if(expr[0] === 'begin'){
+                var result;
+                _.each(expr.slice(1), function(ele, index, list){
+                    result = _inter(ele, env);
+                })
+                return result;
+            }
+
+            if(expr[0] === 'set!'){
+                env[expr[1]] = _inter(expr[2], env);
+                return ;
             }
         }
 

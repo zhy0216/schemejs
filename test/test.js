@@ -27,9 +27,7 @@ describe('interpreter', function () {
         inter("(if (zero? 0) 46 0)").should.equal(46) 
     })
 
-
-
-    it('fact', function () {
+    it.only('fact', function () {
         inter("\
                 (let ((fact \ (lambda (n) \
                                     (if (zero? n) \
@@ -58,6 +56,47 @@ describe('interpreter', function () {
         inter("(lambda (x y) x)")(46, 1).should.equal(46)
         inter("(lambda (x y) (+ x y))")(45, 1).should.equal(46)
         inter("((lambda (x y) (+ x y)) 45 1)").should.equal(46)
+    })
+
+    it('begin', function(){
+        inter("(begin (+ 1 2) 46)").should.equal(46)
+    })
+
+    it('set!', function(){
+        inter("(let ((x 45))(begin (set! x 46) x))").should.equal(46)
+    })
+
+    it('let multi body',function(){
+        inter("(let ((x 45))(set! x 46) x)").should.equal(46)
+    })
+
+    it('call-by-value', function(){
+        inter("\
+            ((lambda (a) \
+                      ((lambda (p) \
+                     (begin \
+                      (p a) \
+                      a)) (lambda (x) (set! x 3)))) 46)").should.equal(46)
+    })
+
+    it('let set! check', function(){
+        inter("\
+            (let ((x 46)) \
+                (let ((x 45)) \
+                    (set! x 44)) \
+            x)").should.equal(46)
+    })
+
+    it('define', function(){
+
+    })
+
+    it('quote', function(){
+
+    })
+
+    it('tostring', function(){
+
     })
 
 })
