@@ -39,9 +39,22 @@ describe('interpreter', function () {
                     (+ (fact  4) 22))").should.equal(46);
     })
 
-     it('', function () {
+    // http://www.ece.uc.edu/~franco/C511/html/Scheme/ycomb.html
 
+    it('Y combinator', function () {
+        inter("(((lambda (X) \
+              ((lambda (procedure) \
+                 (X (lambda (arg) ((procedure procedure) arg)))) \
+               (lambda (procedure) \
+                 (X (lambda (arg) ((procedure procedure) arg)))))) \
+            (lambda (func-arg) \
+              (lambda (n) \
+                (if (zero? n) \
+                    1 \
+                    (* n (func-arg (sub1 n))))))) \
+           5)").should.equal(120);
     })
+
 })
 
 
