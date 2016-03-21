@@ -18,5 +18,5 @@ number
     / head:[1-9] tail:[0-9]* { return parseInt(head + tail.join('')); }
 
 symbol
-    = s:[-+*/!@%^&,=.a-zA-Z0-9_]+
+    = s:[-+*/!@%^&,=.a-zA-Z0-9_?]+
      { return  s.join("") }

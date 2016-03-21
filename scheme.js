@@ -8,6 +8,8 @@ function interpreter(expr){
     var env = {
         'sub1': x => x - 1,
         'add1': x => x + 1,
+        'zero?': x => x === 0,
+        // '*': (x,y) => x * y,
     }
 
     return _inter(parsedData, env);
@@ -30,22 +32,35 @@ function _inter(expr, env){
         }
 
         if(_.isString(expr[0])){
-            if(expr[0] == '+'){
+            if(expr[0] === '+'){
                 return _inter(expr[1], env) + _inter(expr[2], env);
             }
 
-            if(expr[0] == 'lambda'){
+            if(expr[0] === '*'){
+                return _inter(expr[1], env) * _inter(expr[2], env);
+            }
+
+            if(expr[0] === 'lambda'){
                 return function(x){
                     env[expr[1][0]] = x;
                     return _inter(expr[2], env);
                 }
             }
 
-            if(expr[0] == 'let'){
+            if(expr[0] === 'let'){
                 _.each(expr[1], function(ele, index, list){
-                    env[ele[0]] = ele[1];
+                    env[ele[0]] = _inter(ele[1], env);
                 });
                 return _inter(expr[2], env);
+            }
+
+            if(expr[0] === 'if'){
+                var cond = _inter(expr[1], env);
+                if(cond){
+                    return _inter(expr[2], env);
+                }else{
+                    return _inter(expr[3], env)
+                }
             }
         }
 
@@ -61,8 +76,6 @@ function _inter(expr, env){
     }
 
 }
-
-
 
 
 module.exports = {

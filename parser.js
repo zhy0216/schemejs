@@ -63,8 +63,8 @@ module.exports = (function() {
         peg$c24 = /^[0-9]/,
         peg$c25 = { type: "class", value: "[0-9]", description: "[0-9]" },
         peg$c26 = function(head, tail) { return parseInt(head + tail.join('')); },
-        peg$c27 = /^[\-+*\/!@%\^&,=.a-zA-Z0-9_]/,
-        peg$c28 = { type: "class", value: "[-+*/!@%^&,=.a-zA-Z0-9_]", description: "[-+*/!@%^&,=.a-zA-Z0-9_]" },
+        peg$c27 = /^[\-+*\/!@%\^&,=.a-zA-Z0-9_?]/,
+        peg$c28 = { type: "class", value: "[-+*/!@%^&,=.a-zA-Z0-9_?]", description: "[-+*/!@%^&,=.a-zA-Z0-9_?]" },
         peg$c29 = function(s) { return  s.join("") },
 
         peg$currPos          = 0,
