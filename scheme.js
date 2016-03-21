@@ -55,11 +55,8 @@ function _inter(expr, env){
 
 
 
-console.log(interpreter("(+ 1 2)")) // ==> 3
-console.log(interpreter("(+ 1 (+ 1 2))")) // ==> 4
-console.log(interpreter("(lambda (x) x)")) // ==> [Function]
-console.log(interpreter("((lambda (x) (+ x 2)) 1)")) // ==> 3
 
-
-
+module.exports = {
+    interpreter: interpreter,
+}
 
