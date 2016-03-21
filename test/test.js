@@ -9,6 +9,11 @@ describe('interpreter', function () {
         intpr("(+ 1 (+ 1 44))").should.equal(46)
     })
 
+    it('sub1 & add1', function () {
+        intpr("(sub1 47)").should.equal(46);
+        intpr("(add1 45)").should.equal(46);
+    })
+
     it('lambda', function () {
         intpr("(lambda (x) x)")(46).should.equal(46)
         intpr("((lambda (x) (+ x 2)) 44)").should.equal(46) 

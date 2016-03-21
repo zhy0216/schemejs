@@ -6,6 +6,8 @@ var _ = require("underscore");
 function interpreter(expr){
     var parsedData = parse(expr);
     var env = {
+        'sub1': x => x - 1,
+        'add1': x => x + 1,
     }
 
     return _inter(parsedData, env);
