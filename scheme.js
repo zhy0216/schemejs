@@ -9,7 +9,8 @@ function interpreter(expr){
         'sub1': x => x - 1,
         'add1': x => x + 1,
         'zero?': x => x === 0,
-        // '*': (x,y) => x * y,
+        '+': (x, y) => x + y,
+        '*': (x, y) => x * y,
     }
 
     return _inter(parsedData, env);
@@ -32,17 +33,14 @@ function _inter(expr, env){
         }
 
         if(_.isString(expr[0])){
-            if(expr[0] === '+'){
-                return _inter(expr[1], env) + _inter(expr[2], env);
-            }
-
-            if(expr[0] === '*'){
-                return _inter(expr[1], env) * _inter(expr[2], env);
-            }
-
             if(expr[0] === 'lambda'){
-                return function(x){
-                    env[expr[1][0]] = x;
+                return function(){
+                    var args = arguments;
+                    // env[expr[1][0]] = x;
+                    _.each(expr[1], function(ele, index, list){
+                        env[ele] = args[index];
+                    })
+
                     return _inter(expr[2], env);
                 }
             }
@@ -64,9 +62,17 @@ function _inter(expr, env){
             }
         }
 
-        return _inter(expr[0], env)(_inter(expr[1], env))
+        // '(e1 e2)  ==> application
+        var lambda = _inter(expr[0], env);
+        var args = [];
+        _.each(expr.slice(1), function(ele, index, list){
+            args.push(_inter(ele, env));
+        })
+        args.push(env);
+        return lambda.apply({}, args);
 
     }
+
     if(_.isNumber(expr) || _.isBoolean(expr)){
         return expr;
     }

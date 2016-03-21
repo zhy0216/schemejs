@@ -17,7 +17,6 @@ describe('interpreter', function () {
     it('lambda', function () {
         inter("(lambda (x) x)")(46).should.equal(46)
         inter("((lambda (x) (+ x 2)) 44)").should.equal(46) 
-
     })
 
     it('let', function () {
@@ -53,6 +52,12 @@ describe('interpreter', function () {
                     1 \
                     (* n (func-arg (sub1 n))))))) \
            5)").should.equal(120);
+    })
+
+    it('support two arg lambda', function(){
+        inter("(lambda (x y) x)")(46, 1).should.equal(46)
+        inter("(lambda (x y) (+ x y))")(45, 1).should.equal(46)
+        inter("((lambda (x y) (+ x y)) 45 1)").should.equal(46)
     })
 
 })
