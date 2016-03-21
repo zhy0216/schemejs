@@ -38,6 +38,13 @@ function _inter(expr, env){
                     return _inter(expr[2], env);
                 }
             }
+
+            if(expr[0] == 'let'){
+                _.each(expr[1], function(ele, index, list){
+                    env[ele[0]] = ele[1];
+                });
+                return _inter(expr[2], env);
+            }
         }
 
         return _inter(expr[0], env)(_inter(expr[1], env))
