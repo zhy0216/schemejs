@@ -15,7 +15,6 @@ Yet another toy js implementation of scheme ~~
 ## TODO
 
 - [ ] make scheme test file separately
-- [ ] define
 - [ ] cond
 - [ ] quote
 - [ ] quasiquote?

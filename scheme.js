@@ -16,15 +16,31 @@ var globalEnv = {
 
 function interpreter(expr){
     var parsedData = parse(expr);
-    var env = {}
+    var env = {};
+    var defineExpr = [];
+    var bodyExpr = [];
+    _.each(parsedData, function(ele, index, list){
+        if(ele[0] === 'define'){
+            defineExpr.push(ele);
+        }else{
+            bodyExpr.push(ele);
+        }
+    })
+    _.each(defineExpr, function(ele, index, list){
+        _defineEnv(ele, env);
+    })
 
-    return _inter(parsedData, env);
+    return _inter(bodyExpr, env);
 }
 
 function _defineEnv(expr, env){
     // assgin to env
     // if env has the value then throw error
-    //
+    if(_.has(env, expr[1])){
+        throw new Error(expr[1] + " already defined");
+    }
+
+    env[expr[1]] = _inter(expr[2], env);
 }
 
 function lookup(symbol, env){
