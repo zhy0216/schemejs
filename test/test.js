@@ -104,8 +104,17 @@ describe('interpreter', function () {
     })
 
     // 
-    it('cond', function(){
+    it.only('cond', function(){
 
+        inter('(cond ((#t 46)))').should.equal(46);
+
+        inter(`
+            (cond
+                ((car '(#f a b)) 6)
+                (#f 4)
+                ((car '(a b)) 46)
+            )
+        `).should.equal(46);
     })
 
     // 

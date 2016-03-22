@@ -69,15 +69,15 @@ function lookup(symbol, env){
 }
 
 function _inter(expr, env){
-    // console.log("========start==========")
-    // console.log(expr);
-    // console.log(env);
-    // console.log("========end==========")
+    console.log("========start==========")
+    console.log(expr);
+    console.log(env);
+    console.log("========end==========")
     if(_.isArray(expr)){
         if(expr.length === 1){ // can be removed when deal with define
             return _inter(expr[0], env)
         }
-
+        console.log("expr[0]:" + expr[0])
         if(_.isString(expr[0])){
             if(expr[0] === 'lambda'){
                 return function(){
@@ -143,6 +143,25 @@ function _inter(expr, env){
 
             if(expr[0] === "'"){
                 return expr;
+            }
+            console.log("here")
+            if(expr[0] === "cond"){
+                console.log("here1")
+                console.log(expr[1])
+                var condexpr = expr[1][0];
+                if(expr[1].length === 1){
+                    console.log("condition:")
+                    var condition = _inter(condexpr[0], env);
+                    console.log(condition)
+                    if(condition){
+                        return _inter(condexpr[1], env);
+                    }else{
+                        return ;
+                    }
+                }
+
+                
+
             }
         }
 
