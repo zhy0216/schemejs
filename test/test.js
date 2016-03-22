@@ -29,28 +29,28 @@ describe('interpreter', function () {
     })
 
     it('fact', function () {
-        inter("\
-                (letrec ((fact \ (lambda (n) \
-                                    (if (zero? n) \
-                                        1 \
-                                        (* n  (fact (sub1 n))))))) \
-                    (+ (fact  4) 22))").should.equal(46);
+        inter(`
+                (letrec ((fact  (lambda (n) 
+                                    (if (zero? n) 
+                                        1 
+                                        (* n  (fact (sub1 n))))))) 
+                    (+ (fact  4) 22))`).should.equal(46);
     })
 
     // http://www.ece.uc.edu/~franco/C511/html/Scheme/ycomb.html
 
     it('Y combinator', function () {
-        inter("(((lambda (X) \
-              ((lambda (procedure) \
-                 (X (lambda (arg) ((procedure procedure) arg)))) \
-               (lambda (procedure) \
-                 (X (lambda (arg) ((procedure procedure) arg)))))) \
-            (lambda (func-arg) \
-              (lambda (n) \
-                (if (zero? n) \
-                    1 \
-                    (* n (func-arg (sub1 n))))))) \
-           5)").should.equal(120);
+        inter(`(((lambda (X) 
+              ((lambda (procedure) 
+                 (X (lambda (arg) ((procedure procedure) arg)))) 
+               (lambda (procedure) 
+                 (X (lambda (arg) ((procedure procedure) arg)))))) 
+            (lambda (func-arg) 
+              (lambda (n)
+                (if (zero? n) 
+                    1 
+                    (* n (func-arg (sub1 n))))))) 
+           5)`).should.equal(120);
     })
 
     it('support two arg lambda', function(){
@@ -72,20 +72,20 @@ describe('interpreter', function () {
     })
 
     it('call-by-value', function(){
-        inter("\
-            ((lambda (a) \
-                      ((lambda (p) \
-                     (begin \
-                      (p a) \
-                      a)) (lambda (x) (set! x 3)))) 46)").should.equal(46)
+        inter(`
+            ((lambda (a) 
+                  ((lambda (p) 
+                     (begin 
+                      (p a) 
+                      a)) (lambda (x) (set! x 3)))) 46)`).should.equal(46)
     })
 
     it('let set! check', function(){
-        inter("\
-            (let ((x 46)) \
-                (let ((x 45)) \
-                    (set! x 44)) \
-            x)").should.equal(46)
+        inter(`
+            (let ((x 46)) 
+                (let ((x 45)) 
+                    (set! x 44)) 
+            x)`).should.equal(46)
     })
 
 
