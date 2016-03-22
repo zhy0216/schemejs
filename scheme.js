@@ -1,7 +1,12 @@
 
-
+var winston = require('winston');
 var parse = require("./parser").parse;
 var _ = require("underscore");
+
+winston.level = 'info';
+winston.prettyPrint = true
+var debug = _.partial(winston.log, 'debug');
+
 
 var globalEnv = {
     'sub1': x => x - 1,
@@ -76,10 +81,10 @@ function quoteUnwrap(expr){
 }
 
 function _inter(expr, env){
-    // console.log("========start==========")
-    // console.log(expr);
-    // console.log(env);
-    // console.log("========end==========")
+    debug("========start==========")
+    debug(expr);
+    debug(env);
+    debug("========end==========")
     if(_.isArray(expr)){
         if(expr.length === 1){ // can be removed when deal with define
             return _inter(expr[0], env)
@@ -154,6 +159,9 @@ function _inter(expr, env){
             if(expr[0] === "cond"){
                 var restCondition = expr.slice(1);
                 var condexpr = restCondition[0];
+                if(condexpr[0] === 'else'){
+                    return _inter(condexpr[1], env);
+                }
                 var condition = _inter(condexpr[0], env);
                 if(restCondition.length === 1){
                     if(condition){

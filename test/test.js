@@ -1,8 +1,11 @@
+var fs = require("fs");
 
 var assert = require('assert');
+
 var should = require('should');
 var inter = require("../scheme").interpreter;
 var tostr = require("../scheme").toString;
+
 
 describe('interpreter', function () {
     it('plus', function () {
@@ -151,9 +154,26 @@ describe('interpreter', function () {
 
     })
 
+})
+
+describe('complicate test', function(){
+    function testSchemeFile(filename, expectValue){
+        // relative path: scheme/
+        it(filename, function(doneit){
+            fs.readFile('test/scheme/'+filename, "utf-8", 
+                function (err, data) {
+                    if (err) {
+                        throw err;
+                    }
+                    inter(data).should.equal(expectValue);
+                    doneit();
+                });
+        })
+    }
+
+    testSchemeFile("1.1.rkt", "'(5 4 3 2 1 0)");
 
 
 })
-
 
 
