@@ -119,11 +119,14 @@ describe('interpreter', function () {
     })
 
     it('car & cdr', function(){
-        // inter("(car '(1 2 3))").should.equal("1");
+        inter("(car '(1 2 3))").should.equal(1);
+        inter("(car '((1 2) 3))").should.equal("'(1 2)");
+        inter("(cdr '(1 2 3))").should.equal("'(2 3)");
+        inter("(cdr '((1 2) 3))").should.equal("'(3)");
     })
 
     it('quasiquote', function(){
-
+        // inter("")
     })
 
     // this is difficult

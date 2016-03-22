@@ -10,7 +10,8 @@ var globalEnv = {
     '+': (x, y) => x + y,
     '*': (x, y) => x * y,
     'eq?': (x, y) => x === y,
-
+    'car': x => ["'", _.first(x[1])],
+    'cdr': x => ["'", _.rest(x[1])],
     // null?
 }
 
