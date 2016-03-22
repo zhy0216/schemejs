@@ -14,7 +14,7 @@ var globalEnv = {
     'zero?': x => x === 0,
     '+': (x, y) => x + y,
     '*': (x, y) => x * y,
-    'eq?': (x, y) => x === y,
+    'eq?': (x, y) => toString(x) === toString(y),
     'car': x => quoteUnwrap(["'", _.first(x[1])]),
     'cdr': x => quoteUnwrap(["'", _.rest(x[1])]),
     'cons': (x, y) => {
@@ -26,8 +26,9 @@ var globalEnv = {
         return [y[0], y[1]]
 
     },
+    'null?': x => x[0] === "'" && x[1].length === 0,
+    'not': x => !x,
 
-    // null?
 }
 
 function interpreter(expr){

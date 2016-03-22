@@ -27,6 +27,13 @@ describe('interpreter', function () {
         inter("(let ((x 1)) (+ x 45))").should.equal(46) 
     })
 
+    it('null?', function () {
+        inter("(null? '())").should.ok
+        inter("(not #f)").should.ok
+        inter("(not (null? 1))").should.ok
+        inter("(not (null? '(1)))").should.ok
+    })
+
     it('if', function () {
         inter("(if (zero? 0) 46 0)").should.equal(46) 
         inter("(if (eq? 46 46) 46 0)").should.equal(46) 
@@ -172,6 +179,7 @@ describe('complicate test', function(){
     }
 
     testSchemeFile("1.1.rkt", "'(5 4 3 2 1 0)");
+    testSchemeFile("1.2.rkt", "'(x y z z x y y x y)");
 
 
 })
