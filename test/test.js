@@ -112,6 +112,7 @@ describe('interpreter', function () {
     it('quote & tostring', function(){
         inter("'()").should.equal("'()");
         inter("'1").should.equal(1);
+        inter("'a").should.equal("'a");
         inter("#t").should.ok;
         inter("'(1 2 3)").should.equal("'(1 2 3)");
         inter("'(1 (2) 3)").should.equal("'(1 (2) 3)");
@@ -123,6 +124,13 @@ describe('interpreter', function () {
         inter("(car '((1 2) 3))").should.equal("'(1 2)");
         inter("(cdr '(1 2 3))").should.equal("'(2 3)");
         inter("(cdr '((1 2) 3))").should.equal("'(3)");
+    })
+
+    it('cons', function(){
+        inter("(cons 'a '(1 2))").should.equal("'(a 1 2)")
+        inter("(cons '1 '(1 2))").should.equal("'(1 1 2)")
+        inter("(cons 2 '(1 2))").should.equal("'(2 1 2)")
+        inter("(cons '(2) '(1 2))").should.equal("'((2) 1 2)")
     })
 
     it('quasiquote', function(){

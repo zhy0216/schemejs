@@ -12,6 +12,16 @@ var globalEnv = {
     'eq?': (x, y) => x === y,
     'car': x => ["'", _.first(x[1])],
     'cdr': x => ["'", _.rest(x[1])],
+    'cons': (x, y) => {
+        if(_.isArray(x)){
+            y[1].unshift(x[1]);
+        }else{
+            y[1].unshift(x);
+        }
+        return [y[0], y[1]]
+
+    },
+
     // null?
 }
 
@@ -160,7 +170,7 @@ function _inter(expr, env){
 function toString(expr){
     if(_.isArray(expr)){
         if(expr[0] === "'"){
-            if(!_.isArray(expr[1])){
+            if(_.isNumber(expr[1]) || _.isBoolean(expr[1])){
                 return toString(expr[1]);
             }
 
