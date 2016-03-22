@@ -159,6 +159,10 @@ function _inter(expr, env){
 function toString(expr){
     if(_.isArray(expr)){
         if(expr[0] === "'"){
+            if(!_.isArray(expr[1])){
+                return toString(expr[1]);
+            }
+
             return "'" + expr.slice(1).map(x => toString(x)).join(" ")
         }
 

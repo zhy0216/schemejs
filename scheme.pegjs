@@ -6,7 +6,7 @@ ws = [ \t\n]*{return null}
 
 expr = ws "(" ws es:expr* ws ")" { return es; }
      / ws t:term { return t; }
-     / ws quote:("'" / "`") "(" ws es:expr* ws ")" {return [quote, es];}
+     / ws quote:("'" / "`") ws es:expr* ws {es.unshift(quote); return es;}
 
 term = number/ symbol/ bool
 

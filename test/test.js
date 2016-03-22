@@ -109,11 +109,17 @@ describe('interpreter', function () {
     })
 
     // 
-    it.only('quote & tostring', function(){
+    it('quote & tostring', function(){
         inter("'()").should.equal("'()");
+        inter("'1").should.equal(1);
+        inter("#t").should.ok;
         inter("'(1 2 3)").should.equal("'(1 2 3)");
         inter("'(1 (2) 3)").should.equal("'(1 (2) 3)");
         inter("'(+ 1 (+ 1 2) 3)").should.equal("'(+ 1 (+ 1 2) 3)");
+    })
+
+    it('car & cdr', function(){
+        // inter("(car '(1 2 3))").should.equal("1");
     })
 
     it('quasiquote', function(){
