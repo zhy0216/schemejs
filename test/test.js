@@ -27,8 +27,7 @@ describe('interpreter', function () {
         inter("(if (zero? 0) 46 0)").should.equal(46) 
     })
 
-    // this is difficult
-    it.skip('fact', function () {
+    it('fact', function () {
         inter("\
                 (letrec ((fact \ (lambda (n) \
                                     (if (zero? n) \

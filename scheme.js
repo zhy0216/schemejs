@@ -57,7 +57,19 @@ function _inter(expr, env){
                 // console.log(newEnv);
                 var result;
                 _.each(expr.slice(2), function(ele, index, list){
-                    console.log(newEnv)
+                    result = _inter(ele, newEnv);
+                })
+                return result;
+            }
+
+            if(expr[0] === 'letrec'){
+                var newEnv = _.create({}, env);
+                _.each(expr[1], function(ele, index, list){
+                    newEnv[ele[0]] = _inter(ele[1], newEnv);
+                });
+
+                var result;
+                _.each(expr.slice(2), function(ele, index, list){
                     result = _inter(ele, newEnv);
                 })
                 return result;
