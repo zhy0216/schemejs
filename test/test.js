@@ -2,6 +2,7 @@
 var assert = require('assert');
 var should = require('should');
 var inter = require("../scheme").interpreter;
+var tostr = require("../scheme").toString;
 
 describe('interpreter', function () {
     it('plus', function () {
@@ -108,8 +109,11 @@ describe('interpreter', function () {
     })
 
     // 
-    it('quote', function(){
-
+    it.only('quote & tostring', function(){
+        inter("'()").should.equal("'()");
+        inter("'(1 2 3)").should.equal("'(1 2 3)");
+        inter("'(1 (2) 3)").should.equal("'(1 (2) 3)");
+        inter("'(+ 1 (+ 1 2) 3)").should.equal("'(+ 1 (+ 1 2) 3)");
     })
 
     it('quasiquote', function(){
@@ -121,9 +125,7 @@ describe('interpreter', function () {
 
     })
 
-    it('tostring', function(){
 
-    })
 
 })
 

@@ -16,7 +16,6 @@ Yet another toy js implementation of scheme ~~
 
 - [ ] make scheme test file separately
 - [ ] cond
-- [ ] quote
 - [ ] quasiquote?
 - [ ] match?
 - [ ] tostring

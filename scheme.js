@@ -30,7 +30,7 @@ function interpreter(expr){
         _defineEnv(ele, env);
     })
 
-    return _inter(bodyExpr, env);
+    return toString(_inter(bodyExpr, env));
 }
 
 function _defineEnv(expr, env){
@@ -129,6 +129,10 @@ function _inter(expr, env){
                 env[expr[1]] = _inter(expr[2], env);
                 return ;
             }
+
+            if(expr[0] === "'"){
+                return expr;
+            }
         }
 
         // '(e1 e2)  ==> application
@@ -152,8 +156,20 @@ function _inter(expr, env){
 
 }
 
+function toString(expr){
+    if(_.isArray(expr)){
+        if(expr[0] === "'"){
+            return "'" + expr.slice(1).map(x => toString(x)).join(" ")
+        }
+
+        return "(" + expr.map(x => toString(x)).join(" ") + ")";
+    }
+
+    return expr;
+}
 
 module.exports = {
     interpreter: interpreter,
+    toString: toString
 }
 
