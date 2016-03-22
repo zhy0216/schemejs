@@ -91,7 +91,14 @@ describe('interpreter', function () {
 
     // use globalEnv? buildInEnv
     it('define', function(){
-
+        inter(`
+            (define x (lambda (x) x))
+            (x 46)
+        `).should.equal(46);
+        inter(`
+            (define x (lambda (x) x))
+            (define x (lambda (x) x))
+        `).should.throw();
     })
 
     // 

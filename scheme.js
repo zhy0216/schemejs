@@ -3,20 +3,28 @@
 var parse = require("./parser").parse;
 var _ = require("underscore");
 
+var globalEnv = {
+    'sub1': x => x - 1,
+    'add1': x => x + 1,
+    'zero?': x => x === 0,
+    '+': (x, y) => x + y,
+    '*': (x, y) => x * y,
+    'eq?': (x, y) => x === y,
+
+    // null?
+}
+
 function interpreter(expr){
     var parsedData = parse(expr);
-    var env = {
-        'sub1': x => x - 1,
-        'add1': x => x + 1,
-        'zero?': x => x === 0,
-        '+': (x, y) => x + y,
-        '*': (x, y) => x * y,
-        'eq?': (x, y) => x === y,
-        
-        // 'null?'
-    }
+    var env = {}
 
     return _inter(parsedData, env);
+}
+
+function _defineEnv(expr, env){
+    // assgin to env
+    // if env has the value then throw error
+    //
 }
 
 function lookup(symbol, env){
@@ -24,6 +32,12 @@ function lookup(symbol, env){
         return env[symbol]
     }
     // console.log(env);
+
+    if(_.has(globalEnv, symbol)){
+        return globalEnv[symbol]
+    }
+
+
     throw new Error('no ' + symbol + " in env");
 }
 
