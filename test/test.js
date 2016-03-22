@@ -25,6 +25,7 @@ describe('interpreter', function () {
 
     it('if', function () {
         inter("(if (zero? 0) 46 0)").should.equal(46) 
+        inter("(if (eq? 46 46) 46 0)").should.equal(46) 
     })
 
     it('fact', function () {
@@ -87,11 +88,28 @@ describe('interpreter', function () {
             x)").should.equal(46)
     })
 
+
+    // use globalEnv? buildInEnv
     it('define', function(){
 
     })
 
+    // 
+    it('cond', function(){
+
+    })
+
+    // 
     it('quote', function(){
+
+    })
+
+    it('quasiquote', function(){
+
+    })
+
+    // this is difficult
+    it('match', function(){
 
     })
 

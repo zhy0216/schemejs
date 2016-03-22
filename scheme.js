@@ -11,6 +11,9 @@ function interpreter(expr){
         'zero?': x => x === 0,
         '+': (x, y) => x + y,
         '*': (x, y) => x * y,
+        'eq?': (x, y) => x === y,
+        
+        // 'null?'
     }
 
     return _inter(parsedData, env);

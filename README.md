@@ -11,3 +11,15 @@ Yet another toy js implementation of scheme ~~
 * `npm install -g`
 * `pegjs scheme.pegjs parser.js`  ---> generate parser
 * `mocha`  ---> see the test
+
+## TODO
+
+- [ ] make scheme test file separately
+- [ ] define
+- [ ] cond
+- [ ] quote
+- [ ] quasiquote?
+- [ ] match?
+- [ ] tostring
+- [ ] make web demo
+- [ ] macro???
