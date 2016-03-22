@@ -53,6 +53,8 @@ function _inter(expr, env){
                     newEnv[ele[0]] = _inter(ele[1], env);
                 });
 
+                // console.log("newEnv:");
+                // console.log(newEnv);
                 var result;
                 _.each(expr.slice(2), function(ele, index, list){
                     console.log(newEnv)
