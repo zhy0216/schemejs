@@ -1,8 +1,8 @@
 // https://github.com/squaremo/scheme-in-js/blob/master/grammar.pegjs
 
-start = expr*
+start = expr*ws
 
-ws = [ \t\n]*
+ws = [ \t\n]*{return null}
 
 expr = ws "(" ws es:expr* ws ")" { return es; }
      / ws t:term { return t; }
