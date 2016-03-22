@@ -10,8 +10,8 @@ var globalEnv = {
     '+': (x, y) => x + y,
     '*': (x, y) => x * y,
     'eq?': (x, y) => x === y,
-    'car': x => ["'", _.first(x[1])],
-    'cdr': x => ["'", _.rest(x[1])],
+    'car': x => quoteUnwrap(["'", _.first(x[1])]),
+    'cdr': x => quoteUnwrap(["'", _.rest(x[1])]),
     'cons': (x, y) => {
         if(_.isArray(x)){
             y[1].unshift(x[1]);
@@ -68,16 +68,22 @@ function lookup(symbol, env){
     throw new Error('no ' + symbol + " in env");
 }
 
+function quoteUnwrap(expr){
+    if(_.isNumber(expr[1]) || _.isBoolean(expr[1])){
+        return expr[1];
+    }
+    return expr;
+}
+
 function _inter(expr, env){
-    console.log("========start==========")
-    console.log(expr);
-    console.log(env);
-    console.log("========end==========")
+    // console.log("========start==========")
+    // console.log(expr);
+    // console.log(env);
+    // console.log("========end==========")
     if(_.isArray(expr)){
         if(expr.length === 1){ // can be removed when deal with define
             return _inter(expr[0], env)
         }
-        console.log("expr[0]:" + expr[0])
         if(_.isString(expr[0])){
             if(expr[0] === 'lambda'){
                 return function(){
@@ -142,26 +148,27 @@ function _inter(expr, env){
             }
 
             if(expr[0] === "'"){
-                return expr;
+                return quoteUnwrap(expr);
             }
-            console.log("here")
+
             if(expr[0] === "cond"){
-                console.log("here1")
-                console.log(expr[1])
-                var condexpr = expr[1][0];
-                if(expr[1].length === 1){
-                    console.log("condition:")
-                    var condition = _inter(condexpr[0], env);
-                    console.log(condition)
+                var restCondition = expr.slice(1);
+                var condexpr = restCondition[0];
+                var condition = _inter(condexpr[0], env);
+                if(restCondition.length === 1){
                     if(condition){
                         return _inter(condexpr[1], env);
                     }else{
                         return ;
                     }
+                }else{
+                    if(condition){
+                        return _inter(condexpr[1], env);
+                    }else{
+                        restCondition.shift()
+                        return _inter(['cond'].concat(restCondition), env);
+                    }
                 }
-
-                
-
             }
         }
 

@@ -104,9 +104,9 @@ describe('interpreter', function () {
     })
 
     // 
-    it.only('cond', function(){
+    it('cond', function(){
 
-        inter('(cond ((#t 46)))').should.equal(46);
+        inter('(cond (#t 46))').should.equal(46);
 
         inter(`
             (cond
