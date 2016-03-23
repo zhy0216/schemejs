@@ -120,8 +120,8 @@ describe('interpreter', function () {
 
         inter(`
             (cond
-                ((car '(#f a b)) 6)
-                (#f 4)
+                ((car '(#f a b)) 7)
+                (#f 8)
                 ((car '(a b)) 46)
             )
         `).should.equal(46);
@@ -139,6 +139,7 @@ describe('interpreter', function () {
     })
 
     it('car & cdr', function(){
+        inter("(not (car '(#f 2 3)))").should.ok;
         inter("(car '(1 2 3))").should.equal(1);
         inter("(car '((1 2) 3))").should.equal("'(1 2)");
         inter("(cdr '(1 2 3))").should.equal("'(2 3)");
@@ -152,8 +153,19 @@ describe('interpreter', function () {
         inter("(cons '(2) '(1 2))").should.equal("'((2) 1 2)")
     })
 
-    it('quasiquote', function(){
-        // inter("")
+    it('list', function(){
+        inter("(list 1 2)").should.equal("'(1 2)")
+        inter("(list 'a 2)").should.equal("'(a 2)")
+        inter(`(let ((x 'a))
+                (list x 2))
+        `).should.equal("'(a 2)")
+    })
+
+    it.skip('quasiquote', function(){
+        inter("\
+            (let ((x 'a)) \
+                `(a ,x)) \
+        ").should.equal("'(a a)")
     })
 
     // this is difficult

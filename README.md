@@ -8,6 +8,8 @@ Yet another toy js implementation of scheme ~~
 
 [https://github.com/chrisdone/jquery-console](https://github.com/chrisdone/jquery-console)
 
+[https://github.com/ljwall/tinyREPL](https://github.com/ljwall/tinyREPL)
+
 ## usage
 * `npm install -g`
 * `pegjs scheme.pegjs parser.js`  ---> generate parser
@@ -15,10 +17,8 @@ Yet another toy js implementation of scheme ~~
 
 ## TODO
 
-- [ ] make scheme test file separately
-- [ ] cond
+- [ ] list
 - [ ] quasiquote?
 - [ ] match?
-- [ ] tostring
 - [ ] make web demo
 - [ ] macro???

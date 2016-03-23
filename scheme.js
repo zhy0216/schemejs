@@ -3,7 +3,7 @@ var winston = require('winston');
 var parse = require("./parser").parse;
 var _ = require("underscore");
 
-winston.level = 'info';
+winston.level = 'error';
 winston.prettyPrint = true
 var debug = _.partial(winston.log, 'debug');
 
@@ -15,7 +15,10 @@ var globalEnv = {
     '+': (x, y) => x + y,
     '*': (x, y) => x * y,
     'eq?': (x, y) => toString(x) === toString(y),
-    'car': x => quoteUnwrap(["'", _.first(x[1])]),
+    'car': x => {
+        debug("_.first x[1]", _.first(x[1]) )
+        return quoteUnwrap(["'", _.first(x[1])])
+    },
     'cdr': x => quoteUnwrap(["'", _.rest(x[1])]),
     'cons': (x, y) => {
         if(_.isArray(x)){
@@ -28,7 +31,6 @@ var globalEnv = {
     },
     'null?': x => x[0] === "'" && x[1].length === 0,
     'not': x => !x,
-
 }
 
 function interpreter(expr){
@@ -74,7 +76,28 @@ function lookup(symbol, env){
     throw new Error('no ' + symbol + " in env");
 }
 
-function quoteUnwrap(expr){
+function quoteUnwrap(expr, quoteStart){
+    var quoteStart = quoteStart || false;
+    debug("<======== quoteUnwrap .. start =================>")
+    debug(expr)
+    debug(quoteStart)
+    debug("<======== quoteUnwrap .. end =================>")
+    if(_.isArray(expr)){
+        if (expr[0] === "'"){
+            if(quoteStart){
+                return quoteUnwrap(expr[1], true)
+            }
+        
+            if(_.isNumber(expr[1]) || _.isBoolean(expr[1])){
+                return expr[1];
+            }
+        
+        }
+
+        return expr.map(x => quoteUnwrap(x, quoteStart))
+    }
+
+
     if(_.isNumber(expr[1]) || _.isBoolean(expr[1])){
         return expr[1];
     }
@@ -164,7 +187,9 @@ function _inter(expr, env){
                     return _inter(condexpr[1], env);
                 }
                 var condition = _inter(condexpr[0], env);
+                debug("condition: ", condition)
                 if(restCondition.length === 1){
+                    debug("condition: ", condition)
                     if(condition){
                         return _inter(condexpr[1], env);
                     }else{
@@ -179,6 +204,22 @@ function _inter(expr, env){
                     }
                 }
             }
+
+            if(expr[0] === 'list'){
+                expr.shift()
+                debug("result:", quoteUnwrap(expr,true))
+                var newExpr = expr.map(x => _inter(x, env))
+                return _inter(["'", quoteUnwrap(newExpr,true)], env)
+            }
+
+
+
+
+
+
+
+
+
         }
 
         // '(e1 e2)  ==> application
