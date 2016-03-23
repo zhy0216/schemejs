@@ -195,7 +195,7 @@ describe('complicate test', function(){
     function testSchemeFile(filename, expectValue, extra){
         // relative path: scheme/
         if(extra){
-            it = it[extra]
+            it = it.only
         }
         it(filename, function(doneit){
             fs.readFile('test/scheme/'+filename, "utf-8", 
@@ -211,6 +211,8 @@ describe('complicate test', function(){
 
     testSchemeFile("1.1.rkt", "'(5 4 3 2 1 0)");
     testSchemeFile("1.2.rkt", "'(x y z z x y y x y)");
+
+    testSchemeFile("6.1.rkt", 46);
 
     // build in function
     // testSchemeFile("match.rkt", "'((e1 . 1) (e2 . 2))", "only");

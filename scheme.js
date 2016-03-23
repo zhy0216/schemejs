@@ -3,7 +3,7 @@ var winston = require('winston');
 var parse = require("./parser").parse;
 var _ = require("underscore");
 
-winston.level = 'debug';
+winston.level = 'error';
 winston.prettyPrint = true
 var debug = _.partial(winston.log, 'debug');
 
