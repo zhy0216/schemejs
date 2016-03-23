@@ -23,6 +23,9 @@ It's no coincidence that every test case is equal to 46.
 
 ## TODO
 
+- [ ] clean comment when parse string, cannot deal with peg? delete line?
+- [ ] make scheme lib -> kina self-hosting
+
 - [ ] make gulp for browser scheme.js
 - [ ] make web demo
 
@@ -32,6 +35,6 @@ It's no coincidence that every test case is equal to 46.
 - [ ] match?
 - [ ] macro???
 
-
+- [ ] remove debug code // https://github.com/sindresorhus/gulp-strip-debug
 
 

@@ -39,6 +39,7 @@ describe('interpreter', function () {
         inter("(pair? '())").should.false()
         inter("(pair? '(1))").should.ok()
         inter("(pair? '1)").should.false()
+        inter("(pair? '_ )").should.false()
 
     })
 
@@ -134,6 +135,8 @@ describe('interpreter', function () {
 
         inter('(cond (#t 46))').should.equal(46);
 
+        inter('(cond (#f 45) (#t 46))').should.equal(46);
+
         inter(`
             (cond
                 ((car '(#f a b)) 7)
@@ -215,7 +218,7 @@ describe('complicate test', function(){
     testSchemeFile("6.1.rkt", 46);
 
     // build in function
-    // testSchemeFile("match.rkt", "'((e1 . 1) (e2 . 2))", "only");
+    testSchemeFile("match.rkt", "'((e1 . 1) (e2 . 2))", true);
 
 })
 

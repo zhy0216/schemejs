@@ -3,7 +3,7 @@ var winston = require('winston');
 var parse = require("./parser").parse;
 var _ = require("underscore");
 
-winston.level = 'error';
+winston.level = 'debug';
 winston.prettyPrint = true
 var debug = _.partial(winston.log, 'debug');
 
@@ -16,7 +16,7 @@ var globalEnv = {
     '*': (x, y) => x * y,
     'eq?': (x, y) => toString(x) === toString(y),
     'car': x => {
-        debug("_.first x[1]", _.first(x[1]) )
+        debug("_.first x[1]: ", _.first(x[1]) )
         return quoteUnwrap(["'", _.first(x[1])])
     },
     'cdr': x => quoteUnwrap(["'", _.rest(x[1])]),
@@ -30,7 +30,8 @@ var globalEnv = {
 
     },
     'null?': x => x[0] === "'" && x[1].length === 0,
-    'pair?': x => x[0] === "'" && x[1].length !== 0,
+    'pair?': x => x[0] === "'" && _.isArray(x[1]) && x[1].length !== 0,
+    'symbol?': _.isString,
     'not': x => !x,
     'and': (x, y) => x && y,
     'or': (x, y) => x || y,
@@ -234,6 +235,7 @@ function _inter(expr, env){
         _.each(expr.slice(1), function(ele, index, list){
             args.push(_inter(ele, env));
         })
+        debug("args: ", args)
         args.push(env);
         return lambda.apply({}, args);
 
