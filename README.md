@@ -17,8 +17,9 @@ Yet another toy js implementation of scheme ~~
 
 ## TODO
 
-- [ ] list
+- [ ] make gulp for browser scheme.js
+- [ ] make web demo
+
 - [ ] quasiquote?
 - [ ] match?
-- [ ] make web demo
 - [ ] macro???
