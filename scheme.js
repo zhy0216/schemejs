@@ -31,6 +31,9 @@ var globalEnv = {
     },
     'null?': x => x[0] === "'" && x[1].length === 0,
     'not': x => !x,
+    'and': (x, y) => x && y,
+    'or': (x, y) => x || y,
+    
 }
 
 function interpreter(expr){

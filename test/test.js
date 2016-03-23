@@ -20,6 +20,7 @@ describe('interpreter', function () {
 
     it('lambda', function () {
         inter("(lambda (x) x)")(46).should.equal(46)
+        inter("(lambda () 46)")().should.equal(46)
         inter("((lambda (x) (+ x 2)) 44)").should.equal(46) 
     })
 
@@ -32,6 +33,8 @@ describe('interpreter', function () {
         inter("(not #f)").should.ok
         inter("(not (null? 1))").should.ok
         inter("(not (null? '(1)))").should.ok
+        inter("(null? ((lambda (x) x) '()))").should.ok
+
     })
 
     it('if', function () {
@@ -72,6 +75,14 @@ describe('interpreter', function () {
 
     it('begin', function(){
         inter("(begin (+ 1 2) 46)").should.equal(46)
+    })
+
+    it('and && or', function(){
+        inter("(and #f #t)").should.false
+        inter("(and #t #t)").should.ok
+        inter("(or #t #t)").should.ok
+        inter("(or #f #f)").should.false
+
     })
 
     it('set!', function(){
@@ -193,6 +204,8 @@ describe('complicate test', function(){
     testSchemeFile("1.1.rkt", "'(5 4 3 2 1 0)");
     testSchemeFile("1.2.rkt", "'(x y z z x y y x y)");
 
+    // build in function
+    testSchemeFile("match.rkt", "'((e1 . 1) (e2 . 2))");
 
 })
 
