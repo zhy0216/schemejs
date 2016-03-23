@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var browserify = require('gulp-browserify');
+var ghPages = require('gulp-gh-pages');
 
 
 gulp.task('toweb', function() {
@@ -14,6 +15,12 @@ gulp.task('index', function() {
     .pipe(swig({root_url: "locahost:4000"}))
     .pipe(gulp.dest('./dist/index.html'))
 });
+
+gulp.task('deploy', function() {
+  return gulp.src('./dist/**/*')
+    .pipe(ghPages());
+});
+
 
 
 // gulp debug

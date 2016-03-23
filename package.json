@@ -9,10 +9,11 @@
     "winston": "^2.2.0"
   },
   "devDependencies": {
-    "mocha": "^2.4.5",
     "gulp": "^3.9.1",
-    "gulp-swig": "^0.8.0",
     "gulp-browserify": "^0.5.1",
+    "gulp-gh-pages": "^0.5.4",
+    "gulp-swig": "^0.8.0",
+    "mocha": "^2.4.5",
     "should": "^8.2.2"
   }
 }
