@@ -28,12 +28,17 @@ describe('interpreter', function () {
         inter("(let ((x 1)) (+ x 45))").should.equal(46) 
     })
 
-    it('null?', function () {
-        inter("(null? '())").should.ok
-        inter("(not #f)").should.ok
-        inter("(not (null? 1))").should.ok
-        inter("(not (null? '(1)))").should.ok
-        inter("(null? ((lambda (x) x) '()))").should.ok
+    it('null? && pair?', function () {
+        inter("(null? '())").should.ok()
+        inter("(null? '1)").should.false()
+        inter("(not #f)").should.ok()
+        inter("(not (null? 1))").should.ok()
+        inter("(not (null? '(1)))").should.ok()
+        inter("(null? ((lambda (x) x) '()))").should.ok()
+
+        inter("(pair? '())").should.false()
+        inter("(pair? '(1))").should.ok()
+        inter("(pair? '1)").should.false()
 
     })
 
@@ -78,10 +83,10 @@ describe('interpreter', function () {
     })
 
     it('and && or', function(){
-        inter("(and #f #t)").should.false
-        inter("(and #t #t)").should.ok
-        inter("(or #t #t)").should.ok
-        inter("(or #f #f)").should.false
+        inter("(and #f #t)").should.false()
+        inter("(and #t #t)").should.ok()
+        inter("(or #t #t)").should.ok()
+        inter("(or #f #f)").should.false()
 
     })
 
@@ -143,14 +148,14 @@ describe('interpreter', function () {
         inter("'()").should.equal("'()");
         inter("'1").should.equal(1);
         inter("'a").should.equal("'a");
-        inter("#t").should.ok;
+        inter("#t").should.ok();
         inter("'(1 2 3)").should.equal("'(1 2 3)");
         inter("'(1 (2) 3)").should.equal("'(1 (2) 3)");
         inter("'(+ 1 (+ 1 2) 3)").should.equal("'(+ 1 (+ 1 2) 3)");
     })
 
     it('car & cdr', function(){
-        inter("(not (car '(#f 2 3)))").should.ok;
+        inter("(not (car '(#f 2 3)))").should.ok();
         inter("(car '(1 2 3))").should.equal(1);
         inter("(car '((1 2) 3))").should.equal("'(1 2)");
         inter("(cdr '(1 2 3))").should.equal("'(2 3)");
@@ -187,8 +192,11 @@ describe('interpreter', function () {
 })
 
 describe('complicate test', function(){
-    function testSchemeFile(filename, expectValue){
+    function testSchemeFile(filename, expectValue, extra){
         // relative path: scheme/
+        if(extra){
+            it = it[extra]
+        }
         it(filename, function(doneit){
             fs.readFile('test/scheme/'+filename, "utf-8", 
                 function (err, data) {
@@ -205,7 +213,7 @@ describe('complicate test', function(){
     testSchemeFile("1.2.rkt", "'(x y z z x y y x y)");
 
     // build in function
-    testSchemeFile("match.rkt", "'((e1 . 1) (e2 . 2))");
+    // testSchemeFile("match.rkt", "'((e1 . 1) (e2 . 2))", "only");
 
 })
 

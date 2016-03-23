@@ -3,7 +3,7 @@ var winston = require('winston');
 var parse = require("./parser").parse;
 var _ = require("underscore");
 
-winston.level = 'error';
+winston.level = 'debug';
 winston.prettyPrint = true
 var debug = _.partial(winston.log, 'debug');
 
@@ -30,10 +30,13 @@ var globalEnv = {
 
     },
     'null?': x => x[0] === "'" && x[1].length === 0,
+    'pair?': x => x[0] === "'" && x[1].length !== 0,
     'not': x => !x,
     'and': (x, y) => x && y,
     'or': (x, y) => x || y,
-    
+
+    'print': x => debug,
+
 }
 
 function interpreter(expr){
