@@ -1,3 +1,11 @@
+; Define and test a procedure insertR that takes 
+; two symbols and a list and returns a new list 
+; with the second symbol inserted after each 
+; occurrence of the first symbol.
+
+; > (insertR 'x 'y '(x z z x y x))
+; (x y z z x y y x y)
+
 (define insertR
   (lambda (x y l)
     (cond

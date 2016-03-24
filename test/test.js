@@ -218,7 +218,8 @@ describe('complicate test', function(){
     testSchemeFile("6.1.rkt", 46);
 
     // build in function
-    testSchemeFile("match.rkt", "'((e1 . 1) (e2 . 2))", true);
+    // testSchemeFile("match.rkt", "'((e1 . 1) (e2 . 2))", true);
+    testSchemeFile("append.rkt", "'(4 6)", true);
 
 })
 

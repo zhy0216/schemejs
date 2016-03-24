@@ -2,6 +2,7 @@
 var winston = require('winston');
 var parse = require("./parser").parse;
 var _ = require("underscore");
+var_ = _.extend(_, require("underscore.string"));
 
 winston.level = 'debug';
 winston.prettyPrint = true
@@ -35,13 +36,17 @@ var globalEnv = {
     'not': x => !x,
     'and': (x, y) => x && y,
     'or': (x, y) => x || y,
-
     'print': x => debug,
 
 }
 
+function _removeComment(expr){
+    var data = expr.split(/\r?\n/);
+    return _.filter(data, x => _.ltrim(x)[0] !== ";").join("\n")
+}
+
 function interpreter(expr){
-    var parsedData = parse(expr);
+    var parsedData = parse(_removeComment(expr));
     var env = {};
     var defineExpr = [];
     var bodyExpr = [];
