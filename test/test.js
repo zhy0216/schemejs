@@ -5,6 +5,7 @@ var assert = require('assert');
 var should = require('should');
 var inter = require("../scheme").interpreter;
 var tostr = require("../scheme").toString;
+var importFile = require("../scheme").importFile;
 
 
 describe('interpreter', function () {
@@ -194,6 +195,17 @@ describe('interpreter', function () {
 
 })
 
+describe('scheme library test', function(){
+    it.only("test importFile", function(done){
+        importFile("test/scheme/append.rkt", function(){
+            inter("(append '(4) '(6))").should.equal("'(4 6)");
+            inter("(append '(4) '())").should.equal("'(4)");
+            inter("(append '(()) '(4))").should.equal("'(() 4)");
+            done()
+        })
+    })
+})
+
 describe('complicate test', function(){
     function testSchemeFile(filename, expectValue, extra){
         // relative path: scheme/
@@ -219,7 +231,7 @@ describe('complicate test', function(){
 
     // build in function
     // testSchemeFile("match.rkt", "'((e1 . 1) (e2 . 2))", true);
-    testSchemeFile("append.rkt", "'(4 6)", true);
+    testSchemeFile("append.rkt", "'(4 6)");
 
 })
 

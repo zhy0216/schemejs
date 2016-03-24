@@ -23,18 +23,14 @@ It's no coincidence that every test case is equal to 46.
 
 ## TODO
 
-- [ ] clean comment when parse string, cannot deal with peg? delete line?
-- [ ] make scheme lib -> kina self-hosting
-
-- [ ] make gulp for browser scheme.js
-- [ ] make web demo
-
 - [ ] curry && curryr
 - [ ] quasiquote?
 // http://blog.theincredibleholk.org/blog/2013/02/11/matching-patterns-with-scheme/
 - [ ] match?
 - [ ] macro???
 
+- [ ] make gulp for browser scheme.js
+- [ ] make web demo
 - [ ] remove debug code // https://github.com/sindresorhus/gulp-strip-debug
 
 

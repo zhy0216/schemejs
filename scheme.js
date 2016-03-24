@@ -1,3 +1,4 @@
+var fs = require("fs");
 
 var winston = require('winston');
 var parse = require("./parser").parse;
@@ -37,6 +38,23 @@ var globalEnv = {
     'and': (x, y) => x && y,
     'or': (x, y) => x || y,
     'print': x => debug,
+
+}
+
+function importFile(rktFile, callback){
+    // everything with define
+    // may implement provide ?
+    fs.readFile(rktFile, "utf-8", function (err, expr) {
+        if (err) {
+            throw err;
+        }
+        var parsedData = parse(_removeComment(expr));
+        var defineExpr = [];
+        _.each(parsedData, function(ele, index, list){
+            _defineEnv(ele, globalEnv);
+        })
+        callback && callback();
+    })
 
 }
 
@@ -274,6 +292,8 @@ function toString(expr){
 
 module.exports = {
     interpreter: interpreter,
-    toString: toString
+    importFile: importFile,
+    toString: toString,
+    ".globalEnv": globalEnv, // 
 }
 
