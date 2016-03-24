@@ -23,7 +23,9 @@ It's no coincidence that every test case is equal to 46.
 
 ## TODO
 
+- [ ] consider pair '(1 . 2) ?
 - [ ] curry && curryr
+
 - [ ] quasiquote?
 // http://blog.theincredibleholk.org/blog/2013/02/11/matching-patterns-with-scheme/
 - [ ] match?

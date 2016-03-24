@@ -170,6 +170,7 @@ describe('interpreter', function () {
         inter("(car '((1 2) 3))").should.equal("'(1 2)");
         inter("(cdr '(1 2 3))").should.equal("'(2 3)");
         inter("(cdr '((1 2) 3))").should.equal("'(3)");
+        inter("(cdr '(1 3))").should.equal("'(3)");
     })
 
     it('cons', function(){
@@ -179,12 +180,15 @@ describe('interpreter', function () {
         inter("(cons '(2) '(1 2))").should.equal("'((2) 1 2)")
     })
 
-    it('list', function(){
+    it.only('list', function(){
         inter("(list 1 2)").should.equal("'(1 2)")
         inter("(list 'a 2)").should.equal("'(a 2)")
         inter(`(let ((x 'a))
                 (list x 2))
         `).should.equal("'(a 2)")
+        inter(`(let ((x 'a))
+                (list (list x x)))
+        `).should.equal("'((a a))")
     })
 
     it.skip('quasiquote', function(){
@@ -246,19 +250,13 @@ describe('complicate test', function(){
         });
     })
 
-    it.skip("6.1.rkt", function(doneit){
+    it.skip("match.rkt", function(doneit){
         testSchemeFile("match.rkt", function(data){
             inter(data).should.equal("'((e1 . 1) (e2 . 2))");
             doneit();
         });
     })
 
-    it("append.rkt", function(doneit){
-        testSchemeFile("append.rkt", function(data){
-            inter(data).should.equal("'(4 6)");
-            doneit();
-        });
-    })
 
 
 })

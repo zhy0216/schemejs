@@ -5,7 +5,7 @@ var parse = require("./parser").parse;
 var _ = require("underscore");
 var_ = _.extend(_, require("underscore.string"));
 
-winston.level = 'error';
+winston.level = 'debug';
 winston.prettyPrint = true
 var debug = _.partial(winston.log, 'debug');
 var error = _.partial(winston.log, 'error');
@@ -33,7 +33,13 @@ var globalEnv = {
 
     },
     'null?': x => x[0] === "'" && x[1].length === 0,
-    'pair?': x => x[0] === "'" && _.isArray(x[1]) && x[1].length !== 0,
+    'pair?': x => {
+        debug("xxxxx", x)
+        return _.isArray(x) && 
+                    x[0] === "'" && 
+                    _.isArray(x[1]) && 
+                    x[1].length !== 0}
+    ,
     'symbol?': x => {
         if(_.isArray(x) && x[0] === "'"){
             var unquoteData = quoteUnwrap(x);
@@ -85,8 +91,11 @@ function interpreter(expr){
         }
     })
     _.each(defineExpr, function(ele, index, list){
-        _defineEnv(ele, env);
+        _defineEnv(ele, globalEnv);
     })
+    // debug("global env: ", globalEnv)
+    debug("======= after define ===========")
+
     return toString(_inter(bodyExpr, env));
 }
 
@@ -116,10 +125,10 @@ function lookup(symbol, env){
 
 function quoteUnwrap(expr, quoteStart){
     var quoteStart = quoteStart || false;
-    debug("<======== quoteUnwrap .. start =================>")
-    debug(expr)
-    debug(quoteStart)
-    debug("<======== quoteUnwrap .. end =================>")
+    // debug("<======== quoteUnwrap .. start =================>")
+    // debug(expr)
+    // debug(quoteStart)
+    // debug("<======== quoteUnwrap .. end =================>")
     if(_.isArray(expr)){
         if (expr[0] === "'"){
             if(quoteStart){
@@ -144,8 +153,8 @@ function quoteUnwrap(expr, quoteStart){
 
 function _inter(expr, env){
     debug("========start==========")
-    debug(expr);
-    debug(env);
+    debug("expr: ", expr);
+    // debug(env);
     debug("========end==========")
     if(_.isArray(expr)){
         if(expr.length === 1){ // can be removed when deal with define
@@ -261,12 +270,17 @@ function _inter(expr, env){
         }
 
         // '(e1 e2)  ==> application
+        // debug("env: ", env)
+        debug("lambda expr: ", expr)
         var lambda = _inter(expr[0], env);
         var args = [];
         _.each(expr.slice(1), function(ele, index, list){
             args.push(_inter(ele, env));
         })
         debug("args: ", args)
+        debug("lambda: ", lambda.name)
+        
+        // debug("globalEnv: ", globalEnv)
         args.push(env);
         return lambda.apply({}, args);
 

@@ -9,12 +9,12 @@
                          (lambda (b^) (sk (append b b^)))
                          fk))
                 fk))
-        ((eq? p '_) (sk '()))
-        ((and (symbol? p))
-         (sk (list (cons p e))))
+        ; ((eq? p '_) (sk '()))
+        ((symbol? p)
+         (sk (list (list p e))))
         ((and (null? p) (null? e))
          (sk '()))
         (else (fk)))))
 
 
-(_match '(_ e1 e2) '(or2 1 2) (lambda (b) b) (lambda () #f))
+(_match '(_ s1 s2) '(or2 1 2) (lambda (b) b) (lambda () #f))
