@@ -44,6 +44,12 @@ describe('interpreter', function () {
 
     })
 
+    it("symbol?", function(){
+        inter("(symbol? 'x)").should.ok()
+        inter("(symbol? '1)").should.false()
+        inter("(symbol? '())").should.false()
+    })
+
     it('if', function () {
         inter("(if (zero? 0) 46 0)").should.equal(46) 
         inter("(if (eq? 46 46) 46 0)").should.equal(46) 
@@ -196,7 +202,7 @@ describe('interpreter', function () {
 })
 
 describe('scheme library test', function(){
-    it.only("test importFile", function(done){
+    it("test importFile", function(done){
         importFile("test/scheme/append.rkt", function(){
             inter("(append '(4) '(6))").should.equal("'(4 6)");
             inter("(append '(4) '())").should.equal("'(4)");
@@ -207,31 +213,53 @@ describe('scheme library test', function(){
 })
 
 describe('complicate test', function(){
-    function testSchemeFile(filename, expectValue, extra){
+    function testSchemeFile(filename, callback){
         // relative path: scheme/
-        if(extra){
-            it = it.only
-        }
-        it(filename, function(doneit){
-            fs.readFile('test/scheme/'+filename, "utf-8", 
-                function (err, data) {
-                    if (err) {
-                        throw err;
-                    }
-                    inter(data).should.equal(expectValue);
-                    doneit();
-                });
-        })
+        fs.readFile('test/scheme/'+filename, "utf-8", 
+            function (err, data) {
+                if (err) {
+                    throw err;
+                }
+                callback && callback(data)
+            }
+        );
     }
 
-    testSchemeFile("1.1.rkt", "'(5 4 3 2 1 0)");
-    testSchemeFile("1.2.rkt", "'(x y z z x y y x y)");
+    it("1.1.rkt", function(doneit){
+        testSchemeFile("1.1.rkt", function(data){
+            inter(data).should.equal("'(5 4 3 2 1 0)");
+            doneit();
+        });
+    })
 
-    testSchemeFile("6.1.rkt", 46);
+    it("1.2.rkt", function(doneit){
+        testSchemeFile("1.2.rkt", function(data){
+            inter(data).should.equal("'(x y z z x y y x y)");
+            doneit();
+        });
+    })
 
-    // build in function
-    // testSchemeFile("match.rkt", "'((e1 . 1) (e2 . 2))", true);
-    testSchemeFile("append.rkt", "'(4 6)");
+    it("6.1.rkt", function(doneit){
+        testSchemeFile("6.1.rkt", function(data){
+            inter(data).should.equal(46);
+            doneit();
+        });
+    })
+
+    it.skip("6.1.rkt", function(doneit){
+        testSchemeFile("match.rkt", function(data){
+            inter(data).should.equal("'((e1 . 1) (e2 . 2))");
+            doneit();
+        });
+    })
+
+    it("append.rkt", function(doneit){
+        testSchemeFile("append.rkt", function(data){
+            inter(data).should.equal("'(4 6)");
+            doneit();
+        });
+    })
+
 
 })
 
