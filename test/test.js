@@ -171,16 +171,20 @@ describe('interpreter', function () {
         inter("(cdr '(1 2 3))").should.equal("'(2 3)");
         inter("(cdr '((1 2) 3))").should.equal("'(3)");
         inter("(cdr '(1 3))").should.equal("'(3)");
+        inter("(cdr (list 'a 'a))").should.equal("'(a)");
+        (function(){
+            inter("(cdr '1)").should.throwError();
+        });
     })
 
-    it('cons', function(){
+    it.only('cons', function(){
         inter("(cons 'a '(1 2))").should.equal("'(a 1 2)")
         inter("(cons '1 '(1 2))").should.equal("'(1 1 2)")
         inter("(cons 2 '(1 2))").should.equal("'(2 1 2)")
         inter("(cons '(2) '(1 2))").should.equal("'((2) 1 2)")
     })
 
-    it.only('list', function(){
+    it('list', function(){
         inter("(list 1 2)").should.equal("'(1 2)")
         inter("(list 'a 2)").should.equal("'(a 2)")
         inter(`(let ((x 'a))
