@@ -5,9 +5,10 @@ var parse = require("./parser").parse;
 var _ = require("underscore");
 var_ = _.extend(_, require("underscore.string"));
 
-winston.level = 'debug';
+winston.level = 'error';
 winston.prettyPrint = true
 var debug = _.partial(winston.log, 'debug');
+var error = _.partial(winston.log, 'error');
 
 
 var globalEnv = {
@@ -33,7 +34,15 @@ var globalEnv = {
     },
     'null?': x => x[0] === "'" && x[1].length === 0,
     'pair?': x => x[0] === "'" && _.isArray(x[1]) && x[1].length !== 0,
-    'symbol?': _.isString,
+    'symbol?': x => {
+        if(_.isArray(x) && x[0] === "'"){
+            var unquoteData = quoteUnwrap(x);
+            return _.isArray(unquoteData) 
+                    && unquoteData[0] === "'"
+                    && _.isString(unquoteData[1]);
+        }
+        return false;
+    },
     'not': x => !x,
     'and': (x, y) => x && y,
     'or': (x, y) => x || y,
@@ -78,7 +87,6 @@ function interpreter(expr){
     _.each(defineExpr, function(ele, index, list){
         _defineEnv(ele, env);
     })
-
     return toString(_inter(bodyExpr, env));
 }
 
