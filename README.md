@@ -2,7 +2,7 @@
 
 Yet another toy js implementation of scheme ~~ 
 
-# under development
+# under development (i am trying some es6 features)
 
 ## usage
 * `npm install -g`
