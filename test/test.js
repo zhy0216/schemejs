@@ -177,7 +177,7 @@ describe('interpreter', function () {
         });
     })
 
-    it.only('cons', function(){
+    it('cons', function(){
         inter("(cons 'a '(1 2))").should.equal("'(a 1 2)")
         inter("(cons '1 '(1 2))").should.equal("'(1 1 2)")
         inter("(cons 2 '(1 2))").should.equal("'(2 1 2)")

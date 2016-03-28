@@ -5,7 +5,7 @@ var parse = require("./parser").parse;
 var _ = require("underscore");
 var_ = _.extend(_, require("underscore.string"));
 
-winston.level = 'debug';
+winston.level = 'error';
 winston.prettyPrint = true
 var debug = _.partial(winston.log, 'debug');
 var error = _.partial(winston.log, 'error');
@@ -281,7 +281,7 @@ function _inter(expr, env){
         debug("lambda: ", lambda.name)
         
         // debug("globalEnv: ", globalEnv)
-        args.push(env);
+        // args.push(env);
         return lambda.apply({}, args);
 
     }
