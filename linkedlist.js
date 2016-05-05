@@ -10,6 +10,12 @@ class LinkedList {
     }
 
     _parse(list){
+        if(list instanceof LinkedList){
+            // maybe copy this list;
+            // see if necessary
+            return ;
+        }
+
         if(!_.isArray(list)){
             throw new Error("list is not atom!");
         }
@@ -17,13 +23,19 @@ class LinkedList {
         // header == null
         // header == array
         //
-
-
-
     }
 
     static parse(){
 
+    }
+
+    static isNull(l){
+        if((l instanceof LinkedList)
+            & (l.head === null)
+            & (l.tail === null)){
+            return true;
+        }
+        return false;
     }
 
     tostr(){

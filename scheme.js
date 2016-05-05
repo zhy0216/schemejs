@@ -1,14 +1,13 @@
 var fs = require("fs");
 
-var winston = require('winston');
-var parse = require("./parser").parse;
 var _ = require("underscore");
 var_ = _.extend(_, require("underscore.string"));
+var parse = require("./parser").parse;
 
-winston.level = 'error';
-winston.prettyPrint = true
-var debug = _.partial(winston.log, 'debug');
-var error = _.partial(winston.log, 'error');
+var u = require("./utils");
+
+var debug = u.log.debug;
+var error = u.log.error;
 
 
 var globalEnv = {
