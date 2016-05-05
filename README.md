@@ -2,7 +2,7 @@
 
 Yet another toy js implementation of scheme ~~ 
 
-# under development (i am trying some es6 features)
+### under development (try some es6 features)
 
 ## usage
 * `npm install -g`
@@ -31,20 +31,19 @@ It's no coincidence that every test case is equal to 46.
 ### Reference
 
 Parser:
-    * [the little javascript](http://www.crockford.com/javascript/little.html)
-    * [pegjs](https://github.com/pegjs/pegjs)
-    * [grammar.pegjs](https://github.com/squaremo/scheme-in-js/blob/master/grammar.pegjs)
-    * 
+* [the little javascript](http://www.crockford.com/javascript/little.html)
+* [pegjs](https://github.com/pegjs/pegjs)
+* [grammar.pegjs](https://github.com/squaremo/scheme-in-js/blob/master/grammar.pegjs)
+* 
 
 Editor:
-    * [paredit-js](http://robert.kra.hn/projects/paredit-js) 
-    * [jquery-console](https://github.com/chrisdone/jquery-console)
-    * [tinyREPL](https://github.com/ljwall/tinyREPL)
+* [paredit-js](http://robert.kra.hn/projects/paredit-js) 
+* [jquery-console](https://github.com/chrisdone/jquery-console)
+* [tinyREPL](https://github.com/ljwall/tinyREPL)
 
 miniKanren: // this is my schemejs goal
-    * [microKanren](https://github.com/jasonhemann/microKanren)
+* [microKanren](https://github.com/jasonhemann/microKanren)
 
 Scheme:
-    * [match function](http://blog.theincredibleholk.org/blog/2013/02/11/matching-patterns-with-scheme/)
-    *
+* [match function](http://blog.theincredibleholk.org/blog/2013/02/11/matching-patterns-with-scheme/)
 
