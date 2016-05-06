@@ -8,16 +8,16 @@ var error = u.log.error;
 
 
 class LinkedList {
-    constructor(list){ // array
+    constructor(list, _state){ // array
         this.head = null;
         this.tail = null;
 
-        this._state = "NULL"; // NULL, QUOTE, QUANSIQUOTE
+        this._state = _state || "NULL"; // NULL, QUOTE, QUANSIQUOTE
         this._parse(list);
     }
 
     _parse(list){
-        // debug(list);
+        debug("_parse: ", list);
         if (list === null || list === undefined){
             return ;
         }
@@ -35,21 +35,41 @@ class LinkedList {
             if(this._state === "NULL"){
                 if(list[0] === "'"){
                     this._state = "QUOTE";
-                    return this._parse(list.slice(1))
+                    return this._parse(list[1])
                 }
 
                 if(list[0] === "`"){  // not consider so far
                     this._state = "QUANSIQUOTE";
-                    return this._parse(list.slice(1))
-                    return ;
+                    return this._parse(list[1])
                 }
 
                 throw new Error("error");
             }
+
+            if(this._state === "QUOTE"){
+                debug("QUOTE: ", list)
+                if(u.func.isAtom(list[0])){
+                    this.head = list[0];
+                }else{
+                    this.head = new LinkedList(list[0], this._state);
+                }
+
+                // if(list.length === 2 && _.isArray(list[1])){
+                //     this.tail = new LinkedList(list[1], this._state);
+                // }else{
+                // }
+                this.tail = new LinkedList(list.slice(1), this._state);
+                    
+
+                return ;
+            }
+
+
+
         }
 
 
-        throw new Error("list is not atom!");
+        throw new Error("some error in _parse!");
     }
 
     static parse(){
@@ -66,38 +86,79 @@ class LinkedList {
     }
 
     toString(){
-        return "'" + this._tostr();
+        return "'" + this._tostr(false, true);
     }
 
     tostr(withdot){
-        return this._tostr(withdot);
+        return "'" +this._tostr(withdot, true);
     }
 
-    _tostr(withdot){
-        var result = "("
-        if(this.head !== null){
-            if(this.head instanceof LinkedList){
-                result += this.head.toString();
+    _tostr(withdot, dotbefore, last){
+        debug("_tostr: ", this)
+        var dotbefore = dotbefore || false;
+        var last = last || false;
+        var result = "";
+        var needClose = false;
+
+        if(LinkedList.isNull(this)){
+            if(dotbefore){
+                return "()";
+            }else{
+                return "";
             }
         }
 
 
+        debug("_tostr dotbefore: ", dotbefore)
+        debug("_tostr last: ", last)
+
+        if(dotbefore){
+            result += "("
+            needClose = true
+        }
+        
+        if(this.head !== null){
+            if(this.head instanceof LinkedList){
+                debug("this.head: ", this.head)
+                result += "(" + this.head._tostr(withdot, false, false) + ")";
+            }else{
+                result += this.head.toString();
+            }
+        }
         if(withdot){
             result += " . "
+            dotbefore = true
+        }else{
+            dotbefore = false
+        }
+
+        if(!last && !withdot && !LinkedList.isNull(this.tail)){
+            result += " "
         }
 
         if(this.tail !== null){
-
-
-
-            result += this.tail.toString();
+            if(this.tail instanceof LinkedList){
+                if(this.tail.tail === null
+                    ||  (LinkedList.isNull(this.tail.tail))){
+                    result += this.tail._tostr(withdot, dotbefore, true);
+                }else{
+                    result += this.tail._tostr(withdot, dotbefore);
+                }
+            }else{
+                result += this.tail.toString();
+            }
         }
 
-        result += ")";
+
+
+        if(needClose){
+            result += ")";
+        }
         return result;
 
     }
 }
 
+LinkedList.NULL = new LinkedList();
 
 module.exports = LinkedList;

@@ -23,7 +23,9 @@ if(config.DEBUG){
     var winston = require('winston');
     winston.level = 'debug';
     winston.prettyPrint = true;
+    
     log.debug = _.partial(winston.log, 'debug');
+    // log.debug = console.log
     log.error = _.partial(winston.log, 'error');
 }
 
