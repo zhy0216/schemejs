@@ -94,6 +94,7 @@ class LinkedList {
     }
 
     static isPair(l){
+        debug("isPair: ", l);
         if(l instanceof LinkedList){
             return !LinkedList.isNull(l);
         }

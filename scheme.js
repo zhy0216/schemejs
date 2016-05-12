@@ -4,6 +4,7 @@ var _ = require("underscore");
 var_ = _.extend(_, require("underscore.string"));
 var parse = require("./parser").parse;
 
+var LinkedList = require("./linkedlist");
 var u = require("./utils");
 
 var debug = u.log.debug;
@@ -31,14 +32,8 @@ var globalEnv = {
         return [y[0], y[1]]
 
     },
-    'null?': x => x[0] === "'" && x[1].length === 0,
-    'pair?': x => {
-        debug("xxxxx", x)
-        return _.isArray(x) && 
-                    x[0] === "'" && 
-                    _.isArray(x[1]) && 
-                    x[1].length !== 0}
-    ,
+    'null?': LinkedList.isNull,
+    'pair?': x => LinkedList.isPair,
     'symbol?': x => {
         if(_.isArray(x) && x[0] === "'"){
             var unquoteData = quoteUnwrap(x);
@@ -122,6 +117,8 @@ function lookup(symbol, env){
     throw new Error('no ' + symbol + " in env");
 }
 
+
+// use for drop repeat 'quote
 function quoteUnwrap(expr, quoteStart){
     var quoteStart = quoteStart || false;
     // debug("<======== quoteUnwrap .. start =================>")
@@ -223,7 +220,10 @@ function _inter(expr, env){
             }
 
             if(expr[0] === "'"){
-                return quoteUnwrap(expr);
+                if(u.func.isAtom(expr[1])){
+                    return new String(expr[1])
+                }
+                return new LinkedList(expr);
             }
 
             if(expr[0] === "cond"){
@@ -253,7 +253,7 @@ function _inter(expr, env){
 
             if(expr[0] === 'list'){
                 expr.shift()
-                debug("result:", quoteUnwrap(expr,true))
+                // debug("result:", quoteUnwrap(expr,true))
                 var newExpr = expr.map(x => _inter(x, env))
                 return _inter(["'", quoteUnwrap(newExpr,true)], env)
             }
