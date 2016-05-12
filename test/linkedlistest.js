@@ -20,12 +20,12 @@ describe('Linked List', function () {
             l.toString().should.equal("'()")
         })
 
-        it("simple 1 array", function(){
+        it("simple array 1", function(){
             var l = new LinkedList(["'", [1,2,3]]);
             l.toString().should.equal("'(1 2 3)")
         })
 
-        it.only("simple 2 array", function(){
+        it("simple array 2", function(){
             var l = new LinkedList(["'", [1,2,3, [4]]]);
             l.toString().should.equal("'(1 2 3 (4))")
         })
@@ -33,6 +33,16 @@ describe('Linked List', function () {
         it("with dots", function(){
             var l = new LinkedList(["'", [1,2,3]]);
             l.tostr(true).should.equal("'(1 . (2 . (3 . ())))")
+        })
+
+        it("parse dot 1", function(){
+            var l = new LinkedList(["'", [1,".",2]]);
+            l.toString().should.equal("'(1 . 2)")
+        })
+
+        it("parse dot 2", function(){
+            var l = new LinkedList(["'", [1,".", [2,3]]]);
+            l.toString().should.equal("'(1 2 3)")
         })
 
     })

@@ -54,11 +54,19 @@ class LinkedList {
                     this.head = new LinkedList(list[0], this._state);
                 }
 
-                // if(list.length === 2 && _.isArray(list[1])){
-                //     this.tail = new LinkedList(list[1], this._state);
-                // }else{
-                // }
-                this.tail = new LinkedList(list.slice(1), this._state);
+                if(list[1] === "."){
+                    if(list.length === 3 && u.func.isAtom(list[2])){
+                        this.tail = list[2]
+                    }else{
+                        if(list.length !== 3){
+                            throw new Error(`parse: in valid use "." !`);
+                        }
+
+                        this.tail = new LinkedList(list[2], this._state);
+                    }
+                }else{
+                    this.tail = new LinkedList(list.slice(1), this._state);
+                }
                     
 
                 return ;
@@ -85,6 +93,14 @@ class LinkedList {
         return false;
     }
 
+    static isPair(l){
+        if(l instanceof LinkedList){
+            return !LinkedList.isNull(l);
+        }
+
+        return false;
+    }
+
     toString(){
         return "'" + this._tostr(false, true);
     }
@@ -106,6 +122,10 @@ class LinkedList {
             }else{
                 return "";
             }
+        }
+
+        if(u.func.isAtom(this.head) && u.func.isAtom(this.tail)){
+            return "("+this.head + " . " + this.tail + ")";
         }
 
 

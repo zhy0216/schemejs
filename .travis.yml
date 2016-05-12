@@ -4,4 +4,4 @@ node_js:
 install:
   - npm install --only=dev
 script:
-  - pegjs scheme.pegjs parser.js
+  - ./node_modules/pegjs/bin/pegjs scheme.pegjs parser.js
