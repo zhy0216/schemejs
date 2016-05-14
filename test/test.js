@@ -38,11 +38,11 @@ describe('interpreter', function () {
         inter("(null? ((lambda (x) x) '()))").should.ok()
     })
 
-    it.only('pair?', function () {
+    it('pair?', function () {
         inter("(pair? '())").should.false()
-        // inter("(pair? '(1))").should.ok()
-        // inter("(pair? '1)").should.false()
-        // inter("(pair? '_ )").should.false()
+        inter("(pair? '(1))").should.ok()
+        inter("(pair? '1)").should.false()
+        inter("(pair? '_ )").should.false()
 
     })
 

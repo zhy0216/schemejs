@@ -33,7 +33,7 @@ var globalEnv = {
 
     },
     'null?': LinkedList.isNull,
-    'pair?': x => LinkedList.isPair,
+    'pair?': LinkedList.isPair,
     'symbol?': x => {
         if(_.isArray(x) && x[0] === "'"){
             var unquoteData = quoteUnwrap(x);
