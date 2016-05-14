@@ -46,7 +46,7 @@ describe('interpreter', function () {
 
     })
 
-    it("symbol?", function(){
+    it.only("symbol?", function(){
         inter("(symbol? 'x)").should.ok()
         inter("(symbol? '1)").should.false()
         inter("(symbol? '())").should.false()

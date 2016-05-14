@@ -34,15 +34,7 @@ var globalEnv = {
     },
     'null?': LinkedList.isNull,
     'pair?': LinkedList.isPair,
-    'symbol?': x => {
-        if(_.isArray(x) && x[0] === "'"){
-            var unquoteData = quoteUnwrap(x);
-            return _.isArray(unquoteData) 
-                    && unquoteData[0] === "'"
-                    && _.isString(unquoteData[1]);
-        }
-        return false;
-    },
+    'symbol?': x => x instanceof String,
     'not': x => !x,
     'and': (x, y) => x && y,
     'or': (x, y) => x || y,
@@ -221,6 +213,10 @@ function _inter(expr, env){
 
             if(expr[0] === "'"){
                 if(u.func.isAtom(expr[1])){
+                    if(_.isNumber(expr[1])){
+                        return expr[1];
+                    }
+
                     return new String(expr[1])
                 }
                 return new LinkedList(expr);
