@@ -154,46 +154,46 @@ describe('interpreter', function () {
         `).should.equal(46);
     })
 
-    // 
+    // toString().
     it('quote & tostring', function(){
-        inter("'()").should.equal("'()");
+        inter("'()").toString().should.equal("'()");
         inter("'1").should.equal(1);
-        inter("'a").should.equal("'a");
+        inter("'a").toString().should.equal("a");
         inter("#t").should.ok();
-        inter("'(1 2 3)").should.equal("'(1 2 3)");
-        inter("'(1 (2) 3)").should.equal("'(1 (2) 3)");
-        inter("'(+ 1 (+ 1 2) 3)").should.equal("'(+ 1 (+ 1 2) 3)");
+        inter("'(1 2 3)").toString().should.equal("'(1 2 3)");
+        inter("'(1 (2) 3)").toString().should.equal("'(1 (2) 3)");
+        inter("'(+ 1 (+ 1 2) 3)").toString().should.equal("'(+ 1 (+ 1 2) 3)");
     })
 
-    it.only('car & cdr', function(){
+    it('car & cdr', function(){
         inter("(not (car '(#f 2 3)))").should.ok();
-        inter("(car '(1 2 3))").should.equal("1");
-        inter("(car '((1 2) 3))").should.equal("'(1 2)");
-        inter("(cdr '(1 2 3))").should.equal("'(2 3)");
-        inter("(cdr '((1 2) 3))").should.equal("'(3)");
-        inter("(cdr '(1 3))").should.equal("'(3)");
-        inter("(cdr (list 'a 'a))").should.equal("'(a)");
+        inter("(car '(1 2 3))").should.equal(1);
+        inter("(car '((1 2) 3))").toString().should.equal("'(1 2)");
+        inter("(cdr '(1 2 3))").toString().should.equal("'(2 3)");
+        inter("(cdr '((1 2) 3))").toString().should.equal("'(3)");
+        inter("(cdr '(1 3))").toString().should.equal("'(3)");
+        inter("(cdr (list 'a 'a))").toString().should.equal("'(a)");
         (function(){
             inter("(cdr '1)").should.throwError();
         });
     })
 
     it('cons', function(){
-        inter("(cons 'a '(1 2))").should.equal("'(a 1 2)")
-        inter("(cons '1 '(1 2))").should.equal("'(1 1 2)")
-        inter("(cons 2 '(1 2))").should.equal("'(2 1 2)")
-        inter("(cons '(2) '(1 2))").should.equal("'((2) 1 2)")
+        inter("(cons 'a '(1 2))").toString().should.equal("'(a 1 2)")
+        inter("(cons '1 '(1 2))").toString().should.equal("'(1 1 2)")
+        inter("(cons 2 '(1 2))").toString().should.equal("'(2 1 2)")
+        inter("(cons '(2) '(1 2))").toString().should.equal("'((2) 1 2)")
     })
 
     it('list', function(){
-        inter("(list 1 2)").should.equal("'(1 2)")
-        inter("(list 'a 2)").should.equal("'(a 2)")
+        inter("(list 1 2)").toString().should.equal("'(1 2)")
+        inter("(list 'a 2)").toString().should.equal("'(a 2)")
         inter(`(let ((x 'a))
                 (list x 2))
-        `).should.equal("'(a 2)")
+        `).toString().should.equal("'(a 2)")
         inter(`(let ((x 'a))
                 (list (list x x)))
-        `).should.equal("'((a a))")
+        `).toString().should.equal("'((a a))")
     })
 
     it.skip('quasiquote', function(){
@@ -213,9 +213,9 @@ describe('interpreter', function () {
 describe('scheme library test', function(){
     it("test importFile", function(done){
         importFile("test/scheme/append.rkt", function(){
-            inter("(append '(4) '(6))").should.equal("'(4 6)");
-            inter("(append '(4) '())").should.equal("'(4)");
-            inter("(append '(()) '(4))").should.equal("'(() 4)");
+            inter("(append '(4) '(6))").toString().should.equal("'(4 6)");
+            inter("(append '(4) '())").toString().should.equal("'(4)");
+            inter("(append '(()) '(4))").toString().should.equal("'(() 4)");
             done()
         })
     })
@@ -236,14 +236,14 @@ describe('complicate test', function(){
 
     it("1.1.rkt", function(doneit){
         testSchemeFile("1.1.rkt", function(data){
-            inter(data).should.equal("'(5 4 3 2 1 0)");
+            inter(data).toString().should.equal("'(5 4 3 2 1 0)");
             doneit();
         });
     })
 
     it("1.2.rkt", function(doneit){
         testSchemeFile("1.2.rkt", function(data){
-            inter(data).should.equal("'(x y z z x y y x y)");
+            inter(data).toString().should.equal("'(x y z z x y y x y)");
             doneit();
         });
     })
@@ -257,7 +257,7 @@ describe('complicate test', function(){
 
     it.skip("match.rkt", function(doneit){
         testSchemeFile("match.rkt", function(data){
-            inter(data).should.equal("'((e1 . 1) (e2 . 2))");
+            inter(data).toString().should.equal("'((e1 . 1) (e2 . 2))");
             doneit();
         });
     })

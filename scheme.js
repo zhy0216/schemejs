@@ -9,7 +9,7 @@ var u = require("./utils");
 
 var debug = u.log.debug;
 var error = u.log.error;
-
+var MySymbol = u.model.MySymbol;
 
 var globalEnv = {
     'sub1': x => x - 1,
@@ -17,7 +17,7 @@ var globalEnv = {
     'zero?': x => x === 0,
     '+': (x, y) => x + y,
     '*': (x, y) => x * y,
-    // 'eq?': (x, y) => toString(x) === toString(y),
+    'eq?': (x, y) => x.toString() === y.toString(),
     'car': x => x.head,
     'cdr': x => x.tail,
     'cons': (x, y) => {
@@ -28,7 +28,7 @@ var globalEnv = {
     },
     'null?': LinkedList.isNull,
     'pair?': LinkedList.isPair,
-    'symbol?': x => x instanceof String,
+    'symbol?': x => x instanceof MySymbol,
     'not': x => !x,
     'and': (x, y) => x && y,
     'or': (x, y) => x || y,
@@ -76,7 +76,7 @@ function interpreter(expr){
     // debug("global env: ", globalEnv)
     debug("======= after define ===========")
 
-    return _inter(bodyExpr, env).toString();
+    return _inter(bodyExpr, env);
 }
 
 function _defineEnv(expr, env){
@@ -211,7 +211,7 @@ function _inter(expr, env){
                         return expr[1];
                     }
 
-                    return new String(expr[1])
+                    return new MySymbol(expr[1])
                 }
                 return new LinkedList(expr);
             }

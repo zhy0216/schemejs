@@ -1,8 +1,16 @@
-
+'use strict';
 
 var _ = require("underscore");
 var config = require("./config");
 
+class MySymbol{
+    constructor(symbol) {
+        this.symbol = symbol;
+    }
+    toString(){
+        return this.symbol.toString()
+    }
+}
 
 function PASS(){}
 
@@ -33,5 +41,6 @@ if(config.DEBUG){
 module.exports = {
     log: log,
     func: func,
+    model: {MySymbol:MySymbol}
 }
 
