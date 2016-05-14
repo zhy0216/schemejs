@@ -188,6 +188,7 @@ describe('interpreter', function () {
     it('list', function(){
         inter("(list 1 2)").toString().should.equal("'(1 2)")
         inter("(list 'a 2)").toString().should.equal("'(a 2)")
+        inter("(list (list 'a 'a))").toString().should.equal("'((a a))")
         inter(`(let ((x 'a))
                 (list x 2))
         `).toString().should.equal("'(a 2)")

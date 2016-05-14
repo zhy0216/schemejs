@@ -22,7 +22,10 @@ var log = {
 
 var func = {
     isAtom: function(value){
-        return _.isBoolean(value) || _.isNumber(value) || _.isString(value);
+        return _.isBoolean(value) 
+                || _.isNumber(value) 
+                || _.isString(value)
+                || value instanceof MySymbol;
     }
 }
 

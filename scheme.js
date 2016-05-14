@@ -242,10 +242,15 @@ function _inter(expr, env){
             }
 
             if(expr[0] === 'list'){
-                expr.shift()
-                // debug("result:", quoteUnwrap(expr,true))
-                var newExpr = expr.map(x => _inter(x, env))
-                return _inter(["'", quoteUnwrap(newExpr,true)], env)
+                var newExpr = expr.slice(1)
+                var newExpr = newExpr.map(x => _inter(x, env))
+                var result = new LinkedList()
+                _.foldl(newExpr, function(r, x){
+                    r.head = x
+                    r.tail = new LinkedList()
+                    return r.tail
+                }, result)
+                return result;
             }
 
 
