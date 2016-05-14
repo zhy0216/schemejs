@@ -167,7 +167,7 @@ describe('interpreter', function () {
 
     it.only('car & cdr', function(){
         inter("(not (car '(#f 2 3)))").should.ok();
-        inter("(car '(1 2 3))").should.equal(1);
+        inter("(car '(1 2 3))").should.equal("1");
         inter("(car '((1 2) 3))").should.equal("'(1 2)");
         inter("(cdr '(1 2 3))").should.equal("'(2 3)");
         inter("(cdr '((1 2) 3))").should.equal("'(3)");

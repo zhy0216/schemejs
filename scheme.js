@@ -18,11 +18,8 @@ var globalEnv = {
     '+': (x, y) => x + y,
     '*': (x, y) => x * y,
     // 'eq?': (x, y) => toString(x) === toString(y),
-    'car': x => {
-        debug("_.first x[1]: ", _.first(x[1]) )
-        return quoteUnwrap(["'", _.first(x[1])])
-    },
-    'cdr': x => quoteUnwrap(["'", _.rest(x[1])]),
+    'car': x => x.head,
+    'cdr': x => x.tail,
     'cons': (x, y) => {
         var temp = new LinkedList();
         temp.head = x
