@@ -214,9 +214,10 @@ describe('interpreter', function () {
 describe('scheme library test', function(){
     it("test importFile", function(done){
         importFile("test/scheme/append.rkt", function(){
-            inter("(append '(4) '(6))").toString().should.equal("'(4 6)");
-            inter("(append '(4) '())").toString().should.equal("'(4)");
-            inter("(append '(()) '(4))").toString().should.equal("'(() 4)");
+            // inter("(append '(4) '(6))").toString().should.equal("'(4 6)");
+            // inter("(append '(4) '())").toString().should.equal("'(4)");
+            // inter("(append '(()) '(4))").toString().should.equal("'(() 4)");
+            inter("(append '((e1 . 1)) '((e2 . 2)))").toString().should.equal("'((e1 . 1) (e2 . 2))");
             done()
         })
     })
@@ -256,7 +257,7 @@ describe('complicate test', function(){
         });
     })
 
-    it.skip("match.rkt", function(doneit){
+    it("match.rkt", function(doneit){
         testSchemeFile("match.rkt", function(data){
             inter(data).toString().should.equal("'((e1 . 1) (e2 . 2))");
             doneit();

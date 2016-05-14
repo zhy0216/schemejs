@@ -5,7 +5,7 @@ var u = require("./utils");
 
 var debug = u.log.debug;
 var error = u.log.error;
-
+var MySymbol = u.model.MySymbol;
 
 class LinkedList {
     constructor(list, _state){ // array
@@ -49,7 +49,13 @@ class LinkedList {
             if(this._state === "QUOTE"){
                 debug("QUOTE: ", list)
                 if(u.func.isAtom(list[0])){
-                    this.head = list[0];
+                    if(_.isBoolean(list[0]) || _.isNumber(list[0])){
+                        debug("im b or n: ")
+                        this.head = list[0];
+                    }else{
+                        debug("im symbol")
+                        this.head = new MySymbol(list[0])
+                    }
                 }else{
                     this.head = new LinkedList(list[0], this._state);
                 }
@@ -141,7 +147,11 @@ class LinkedList {
         if(this.head !== null){
             if(this.head instanceof LinkedList){
                 debug("this.head: ", this.head)
-                result += "(" + this.head._tostr(withdot, false, false) + ")";
+                if(u.func.isAtom(this.head.head) && u.func.isAtom(this.head.tail)){
+                    result += "(" + this.head.head + " . " + this.head.tail + ")";
+                }else{
+                    result += "(" + this.head._tostr(withdot, false, false) + ")";
+                }
             }else{
                 result += this.head.toString();
             }

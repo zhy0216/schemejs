@@ -28,7 +28,9 @@ var globalEnv = {
     },
     'null?': LinkedList.isNull,
     'pair?': LinkedList.isPair,
-    'symbol?': x => x instanceof MySymbol,
+    'symbol?': function(x){
+        return x instanceof MySymbol;
+    },
     'not': x => !x,
     'and': (x, y) => x && y,
     'or': (x, y) => x || y,
@@ -103,40 +105,10 @@ function lookup(symbol, env){
     throw new Error('no ' + symbol + " in env");
 }
 
-
-// use for drop repeat 'quote
-function quoteUnwrap(expr, quoteStart){
-    var quoteStart = quoteStart || false;
-    // debug("<======== quoteUnwrap .. start =================>")
-    // debug(expr)
-    // debug(quoteStart)
-    // debug("<======== quoteUnwrap .. end =================>")
-    if(_.isArray(expr)){
-        if (expr[0] === "'"){
-            if(quoteStart){
-                return quoteUnwrap(expr[1], true)
-            }
-        
-            if(_.isNumber(expr[1]) || _.isBoolean(expr[1])){
-                return expr[1];
-            }
-        
-        }
-
-        return expr.map(x => quoteUnwrap(x, quoteStart))
-    }
-
-
-    if(_.isNumber(expr[1]) || _.isBoolean(expr[1])){
-        return expr[1];
-    }
-    return expr;
-}
-
 function _inter(expr, env){
     debug("========start==========")
     debug("expr: ", expr);
-    // debug(env);
+    // debug("env: ", env);
     debug("========end==========")
     if(_.isArray(expr)){
         if(expr.length === 1){ // can be removed when deal with define
@@ -225,7 +197,7 @@ function _inter(expr, env){
                 var condition = _inter(condexpr[0], env);
                 debug("condition: ", condition)
                 if(restCondition.length === 1){
-                    debug("condition: ", condition)
+                    // debug("condition: ", condition)
                     if(condition){
                         return _inter(condexpr[1], env);
                     }else{
@@ -253,31 +225,24 @@ function _inter(expr, env){
                 return result;
             }
 
-
-
-
-
-
-
-
-
         }
 
         // '(e1 e2)  ==> application
         // debug("env: ", env)
-        debug("lambda expr: ", expr)
+        // debug("function expr: ", expr)
         var lambda = _inter(expr[0], env);
         var args = [];
         _.each(expr.slice(1), function(ele, index, list){
             args.push(_inter(ele, env));
         })
         debug("args: ", args)
-        debug("lambda: ", lambda.name)
+        // debug("function: ", lambda)
         
         // debug("globalEnv: ", globalEnv)
         // args.push(env);
-        return lambda.apply({}, args);
-
+        var result = lambda.apply({}, args);
+        // debug("function result: ", result)
+        return result
     }
 
     if(_.isNumber(expr) || _.isBoolean(expr)){

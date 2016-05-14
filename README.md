@@ -13,15 +13,10 @@ It's no coincidence that every test case is equal to 46.
 
 ## TODO
 
-- [ ] make linked list data structure?
-- [ ] add one paser pass, to convert the '() to linked list
-
-- [ ] consider pair '(1 . 2) ?
 - [ ] curry && curryr
 
 - [ ] quasiquote?
 // 
-- [ ] match?
 - [ ] macro???
 
 - [ ] make gulp for browser scheme.js
