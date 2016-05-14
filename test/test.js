@@ -4,7 +4,6 @@ var assert = require('assert');
 
 var should = require('should');
 var inter = require("../scheme").interpreter;
-var tostr = require("../scheme").toString;
 var importFile = require("../scheme").importFile;
 
 
@@ -46,7 +45,7 @@ describe('interpreter', function () {
 
     })
 
-    it.only("symbol?", function(){
+    it("symbol?", function(){
         inter("(symbol? 'x)").should.ok()
         inter("(symbol? '1)").should.false()
         inter("(symbol? '())").should.false()
@@ -166,7 +165,7 @@ describe('interpreter', function () {
         inter("'(+ 1 (+ 1 2) 3)").should.equal("'(+ 1 (+ 1 2) 3)");
     })
 
-    it('car & cdr', function(){
+    it.only('car & cdr', function(){
         inter("(not (car '(#f 2 3)))").should.ok();
         inter("(car '(1 2 3))").should.equal(1);
         inter("(car '((1 2) 3))").should.equal("'(1 2)");

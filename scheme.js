@@ -17,20 +17,17 @@ var globalEnv = {
     'zero?': x => x === 0,
     '+': (x, y) => x + y,
     '*': (x, y) => x * y,
-    'eq?': (x, y) => toString(x) === toString(y),
+    // 'eq?': (x, y) => toString(x) === toString(y),
     'car': x => {
         debug("_.first x[1]: ", _.first(x[1]) )
         return quoteUnwrap(["'", _.first(x[1])])
     },
     'cdr': x => quoteUnwrap(["'", _.rest(x[1])]),
     'cons': (x, y) => {
-        if(_.isArray(x)){
-            y[1].unshift(x[1]);
-        }else{
-            y[1].unshift(x);
-        }
-        return [y[0], y[1]]
-
+        var temp = new LinkedList();
+        temp.head = x
+        temp.tail = y
+        return temp
     },
     'null?': LinkedList.isNull,
     'pair?': LinkedList.isPair,
@@ -82,7 +79,7 @@ function interpreter(expr){
     // debug("global env: ", globalEnv)
     debug("======= after define ===========")
 
-    return toString(_inter(bodyExpr, env));
+    return _inter(bodyExpr, env).toString();
 }
 
 function _defineEnv(expr, env){
@@ -291,26 +288,11 @@ function _inter(expr, env){
 
 }
 
-function toString(expr){
-    if(_.isArray(expr)){
-        if(expr[0] === "'"){
-            if(_.isNumber(expr[1]) || _.isBoolean(expr[1])){
-                return toString(expr[1]);
-            }
 
-            return "'" + expr.slice(1).map(x => toString(x)).join(" ")
-        }
-
-        return "(" + expr.map(x => toString(x)).join(" ") + ")";
-    }
-
-    return expr;
-}
 
 module.exports = {
     interpreter: interpreter,
     importFile: importFile,
-    toString: toString,
     ".globalEnv": globalEnv, // 
 }
 
