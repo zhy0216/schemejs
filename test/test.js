@@ -26,6 +26,8 @@ describe('interpreter', function () {
 
     it('let', function () {
         inter("(let ((x 1)) (+ x 45))").should.equal(46) 
+        inter("(let ((x 1) (y 2)) (+ y 44))").should.equal(46) 
+        inter("(let ((x 2) (y 44)) (+ y x))").should.equal(46) 
     })
 
     it('null?', function () {
@@ -195,6 +197,10 @@ describe('interpreter', function () {
         inter(`(let ((x 'a))
                 (list (list x x)))
         `).toString().should.equal("'((a a))")
+        inter(`(let ((x 'a)
+                     (y 'b))
+                (list (list y x)))
+        `).toString().should.equal("'((b a))")
     })
 
     it.skip('quasiquote', function(){
@@ -214,9 +220,9 @@ describe('interpreter', function () {
 describe('scheme library test', function(){
     it("test importFile", function(done){
         importFile("test/scheme/append.rkt", function(){
-            // inter("(append '(4) '(6))").toString().should.equal("'(4 6)");
-            // inter("(append '(4) '())").toString().should.equal("'(4)");
-            // inter("(append '(()) '(4))").toString().should.equal("'(() 4)");
+            inter("(append '(4) '(6))").toString().should.equal("'(4 6)");
+            inter("(append '(4) '())").toString().should.equal("'(4)");
+            inter("(append '(()) '(4))").toString().should.equal("'(() 4)");
             inter("(append '((e1 . 1)) '((e2 . 2)))").toString().should.equal("'((e1 . 1) (e2 . 2))");
             done()
         })
