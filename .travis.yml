@@ -1,9 +1,7 @@
+sudo: false
 language: node_js
 node_js:
   - "5"
 install:
   - npm install --only=dev
-script: ./node_modules/pegjs/bin/pegjs scheme.pegjs parser.js
-cache:
-  directories:
-    - node_modules
+script: npm run pegjs
