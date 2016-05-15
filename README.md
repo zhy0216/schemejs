@@ -2,6 +2,8 @@
 
 Yet another toy js implementation of scheme ~~ 
 
+![travis ci](https://travis-ci.org/zhy0216/schemejs.svg?branch=master)
+
 ### under development (try some es6 features)
 
 ## usage
@@ -13,15 +15,12 @@ It's no coincidence that every test case is equal to 46.
 
 ## TODO
 
-- [ ] curry && curryr
-
 - [ ] quasiquote?
 // 
 - [ ] macro???
 
 - [ ] make gulp for browser scheme.js
 - [ ] make web demo
-- [ ] remove debug code // https://github.com/sindresorhus/gulp-strip-debug
 
 ### Reference
 
@@ -35,9 +34,6 @@ Editor:
 * [paredit-js](http://robert.kra.hn/projects/paredit-js) 
 * [jquery-console](https://github.com/chrisdone/jquery-console)
 * [tinyREPL](https://github.com/ljwall/tinyREPL)
-
-miniKanren: // this is my schemejs goal
-* [microKanren](https://github.com/jasonhemann/microKanren)
 
 Scheme:
 * [match function](http://blog.theincredibleholk.org/blog/2013/02/11/matching-patterns-with-scheme/)
