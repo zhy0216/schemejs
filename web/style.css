@@ -8,3 +8,27 @@
 #header h1{
     text-align: center;
 }
+
+#console {
+    height: 220px;
+    padding: 10px;
+    // background: #FFFFFF;
+    font-family: monospace;
+    font-size: 14px;
+    margin-bottom: 10px;
+    border: 1px solid #0ff;
+}
+
+#console div.jquery-console-inner {
+    width: 580px;
+    height: 200px;
+    margin: 10px 10px;
+    overflow: auto;
+    text-align: left;
+}
+
+#console div.jquery-console-focus span.jquery-console-cursor{     
+    background: #bff;
+    color: #FFFFFF;
+    font-weight:bold;
+}

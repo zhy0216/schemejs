@@ -19,8 +19,6 @@ It's no coincidence that every test case is equal to 46.
 // 
 - [ ] macro???
 
-- [ ] make gulp for browser scheme.js
-- [ ] make web demo
 
 ### Reference
 
