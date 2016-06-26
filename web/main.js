@@ -1,3 +1,4 @@
+var inter = require("../scheme").interpreter;
 
 $(function(){
 
@@ -9,7 +10,13 @@ $(function(){
         else return true;
       },
       commandHandle:function(line){
-         return line
+        var result;
+        try { 
+          result = inter(line);
+        }catch (e) { 
+          return e.toString(); 
+        }
+        return result.toString();
       },
       autofocus:true,
       animateScroll:true,

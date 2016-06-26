@@ -1,5 +1,5 @@
 
-DEBUG = false;
+var DEBUG = false;
 
 
 module.exports = {

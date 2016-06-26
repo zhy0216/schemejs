@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var rename = require("gulp-rename");
 var browserify = require('gulp-browserify');
 var ghPages = require('gulp-gh-pages');
 
@@ -6,8 +7,9 @@ var ghPages = require('gulp-gh-pages');
 
 gulp.task('toweb', function() {
     // Single entry point to browserify 
-    gulp.src('scheme.js')
+    gulp.src('web/main.js')
         .pipe(browserify())
+        .pipe(rename("scheme.js"))
         .pipe(gulp.dest('./web'))
 });
 
