@@ -1,0 +1,68 @@
+
+#wrapper {
+    text-align: left;
+    width: 620px;
+    margin: 0 auto;
+}
+
+#header h1{
+    text-align: center;
+}
+
+#console {
+    height: 400px;
+    padding: 10px;
+    // background: #FFFFFF;
+    font-family: monospace;
+    font-size: 14px;
+    margin: 25px 0px;
+    border: 1px solid #0ff;
+}
+
+#console div.jquery-console-inner {
+    width: 580px;
+    height: 400px;
+    margin: 10px 10px;
+    overflow: auto;
+    text-align: left;
+}
+
+#console div.jquery-console-focus span.jquery-console-cursor{     
+    background: #bff;
+    color: #FFFFFF;
+    font-weight:bold;
+}
+
+#console div.jquery-console-message-error {
+    color: #FD713B;
+}
+
+.eg-btn{
+    padding: 5px 10px;
+    border-bottom: 1px solid;
+    display: inline-block;
+    cursor: pointer;
+    margin: auto 5px;
+}
+#insertR{
+    margin-left: 0px;
+}
+
+.eg-btn:hover{
+    border-bottom: 4px solid;
+}
+
+#footer{
+    position: absolute;
+    left: 50%;
+    margin-left: -50px;
+    bottom: 20px;
+}
+
+#github{
+    position: absolute;
+    top: 0;
+    right: 50%;
+    margin-right: -310px;
+    cursor: pointer;
+}

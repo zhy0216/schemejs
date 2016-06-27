@@ -1,0 +1,185 @@
+/* from pjreddie.com */
+
+html, body{
+    font-family:'Roboto',Arial,sans-serif;
+    font-size:16px;
+    line-height:1.5;
+    margin:0;
+    padding:0;
+    background-color:transparent;
+    font-weight:300;
+}
+.dntext{
+    width:4em;
+    margin-bottom:-.5em;
+}
+pre{
+    padding:1em;
+    font-family: 'Ubuntu Mono', monospace;
+    background-color:#205;
+}
+code, .code{
+    font-family: 'Ubuntu Mono', monospace;
+    color:#0f0;
+}
+
+a{
+    text-decoration:none;
+    color: inherit;
+}
+
+p{
+    letter-spacing:1px;
+}
+
+body{
+    color:#0ff;
+}
+
+hr{
+    width: 80%;
+    background-color:#0ff;
+    border:none;
+    height: 1px;
+}
+.relative{
+    position:relative;
+}
+
+html{
+    background-color:#001;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+#dncircle{
+    position:absolute;
+    width:64px;
+    top:-12px;
+    left:-32px;
+    opacity:.5;
+}
+.main{
+    margin:0em auto;
+    padding:0em 3.5em;
+    max-width:35em;
+}
+.top .main{
+    margin:0em auto;
+    padding:0em 3.5em;
+    max-width:35em;
+}
+
+.header{
+    color:#bff;
+    font-family: 'Ubuntu Mono', monospace;
+    font-size:4em;
+    margin-bottom:.25em;
+    margin-top:0em;
+    text-align:right;
+    font-weight:normal;
+    border:none;
+}
+
+h1{
+    font-family: 'Roboto Slab', serif;
+    font-size:2em;
+    font-weight:300;
+    color:#fb0;
+    border-bottom:solid 1px #fb0;
+}
+h2{
+    font-family: 'Roboto Slab', serif;
+    font-weight:300;
+    color:#bff;
+}
+h3{
+    font-family: 'Roboto Slab', serif;
+    font-weight:300;
+    color:#bff;
+}
+h4{
+    font-family: 'Roboto Slab', serif;
+    font-weight:300;
+    color:#bff;
+}
+
+ul.nav{
+    font-family: 'Ubuntu Mono', monospace;
+    list-style-type:none;
+    margin:0;
+    padding:0;
+    z-index:9;
+}
+ul.nav li{
+    float:left;
+    margin:1em 1em 1em 0em;
+}
+ul.nav li a{
+    text-decoration:none;
+    color:#0ff;
+    padding:1em .8em .5em 0em;
+}
+ul.nav li a:hover {
+    border-bottom:solid 3px #0FF;
+}
+div.break{
+    clear:both;
+}
+.bar.green{
+    background-color:#0ff;
+    height:.5em;
+    width:100%;
+    box-shadow: 0px 0px 50px 0px #bff;
+    display:none;
+}
+
+.bar.blue{
+    margin:1em 0em 0em 3.5em;
+    background-color:#0ff;
+    height:.5em;
+    box-shadow: 0px 0px 100px 10px #bff;
+    display:none;
+}
+
+.bar{
+    transition:box-shadow .5s linear;
+    -moz-transition:box-shadow .5s linear; /* Firefox 4 */
+    -webkit-transition:box-shadow .5s linear; /* Safari and Chrome */
+    -o-transition:box-shadow .5s linear; /* Opera */
+}
+
+.sc{
+    font-variant:small-caps;
+}
+blockquote{
+    margin-top:40px;
+    padding:0px 20px;
+    border-left:3px #0ff solid;
+    font-family: 'Roboto Slab', serif;
+}
+footer{
+    margin-left:40px;
+    font-size:.75em;
+    font-style:italic;
+    margin-top:.5em;
+}
+
+.markdown a{
+    color:#fb0;
+}
+
+.markdown img{
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    max-width:100%;
+}
+
+p a{
+    color:#fb0;
+}
+p a:hover {
+    text-decoration:underline;
+}
