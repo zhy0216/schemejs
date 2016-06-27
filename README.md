@@ -6,7 +6,7 @@ Yet another toy js implementation of scheme ~~
 
 ### under development (try some es6 features)
 
-## usage
+## Usage
 * `npm install -g`
 * `pegjs scheme.pegjs parser.js`  ---> generate parser
 * `mocha`  ---> see the test
@@ -26,7 +26,6 @@ Parser:
 * [the little javascript](http://www.crockford.com/javascript/little.html)
 * [pegjs](https://github.com/pegjs/pegjs)
 * [grammar.pegjs](https://github.com/squaremo/scheme-in-js/blob/master/grammar.pegjs)
-* 
 
 Editor:
 * [paredit-js](http://robert.kra.hn/projects/paredit-js) 
@@ -36,3 +35,5 @@ Editor:
 Scheme:
 * [match function](http://blog.theincredibleholk.org/blog/2013/02/11/matching-patterns-with-scheme/)
 
+Extra:
+* [github corners](https://github.com/tholman/github-corners)
