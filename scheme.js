@@ -13408,6 +13408,10 @@ $(function() {
       controller.focus();
     })
 
+    $("#github").click(function(){
+      var win = window.open("https://github.com/zhy0216/schemejs", '_blank');
+    })
+
 
 })
 },{"../scheme":127}]},{},[129])
