@@ -4,7 +4,7 @@ Yet another toy js implementation of scheme ~~
 
 ![travis ci](https://travis-ci.org/zhy0216/schemejs.svg?branch=master)
 
-### under development (try some es6 features)
+### CHECKOUT [DEMO HERE](http://zhy0216.github.io/schemejs/)
 
 ## Usage
 * `npm install -g`

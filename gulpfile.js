@@ -20,7 +20,7 @@ gulp.task('index', function() {
 });
 
 gulp.task('deploy', function() {
-  return gulp.src('./dist/**/*')
+  return gulp.src('./web/**/*')
     .pipe(ghPages());
 });
 
