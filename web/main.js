@@ -13,8 +13,9 @@ $(function(){
         var result;
         try { 
           result = inter(line);
-        }catch (e) { 
-          return e.toString(); 
+        }catch (e) {
+          console.log("error")
+          return [{msg: e.toString(), className:"jquery-console-message-error"}];
         }
         return result.toString();
       },
@@ -22,5 +23,7 @@ $(function(){
       animateScroll:true,
       promptHistory:true,
     });
+
+    // controller.typer.consoleInsert("(+ 1 2)")
 
 })
