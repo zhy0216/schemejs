@@ -3,6 +3,8 @@
     text-align: left;
     width: 620px;
     margin: 0 auto;
+    position:relative;
+    min-height: 720px;
 }
 
 #header h1{
